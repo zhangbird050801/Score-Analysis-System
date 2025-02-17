@@ -1,5 +1,6 @@
 #include "tools/color.h"
 
+// 颜色显示等定义
 const char* RESET           = "\033[0m";
 const char* FRONT_BLACK     = "\033[30m";
 const char* FRONT_RED       = "\033[31m";

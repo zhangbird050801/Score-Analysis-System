@@ -55,3 +55,9 @@ void exitMessage()
     printf("\n%s%s%s%s\n", FRONT_RED, BOLD, GOODBYE, RESET);
     printf("%s%s%s\n", FRONT_YELLOW, NEXTTIME, RESET);
 }
+
+void failureMessage() {printf("%s%s%s\n", FRONT_RED, FAILURE, RESET);}
+
+void loadingMessage(){printf("%s%s%s%s\n\n", BOLD, TWINKLING, LOADING, RESET);}
+
+void loadingSuccess(){printf("%s%s%s%s\n\n", BOLD, FRONT_RED, LOADINGSUCCESS, RESET);}

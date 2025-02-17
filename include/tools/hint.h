@@ -5,4 +5,10 @@ void welcomeMessage();
 
 void exitMessage();
 
+void failureMessage();
+
+void loadingMessage();
+
+void loadingSuccess();
+
 #endif
