@@ -1,17 +1,31 @@
 #ifndef _INTERFACE_H_
 #define _INTERFACE_H_
 
-#include "Menu/menu.h"
+#include "menu/menu.h"
 #include "tools/color.h"
 #include "tools/hint.h"
 #include "tools/info.h"
+#include "config.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
+extern int nowUser;
 
 typedef void (*HANDLE)(void); // 定义函数指针
 
-void MAKE_Interface(Menu type, HANDLE handler[]);
+void makeInterface(Menu type, HANDLE handler[]);
 
-/* MAIN_Interface */
-void MAIN_Interface();
+/* mainInterface */
+void mainInterface();
+void userLogin();
+void userLoginSuccess(char *username);
+void getName(char* name);
+void getPassword(char* password);
+void tryAgain(char *username, char *password, int cnt);
+
+/* userInterface */
+
 
 #endif

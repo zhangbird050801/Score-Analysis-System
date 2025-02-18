@@ -41,16 +41,15 @@ static const char* NEXTTIME = "\t\t\t\t       *** 欢迎下次再来！***";
 static const char* LOADING = "\n\t\t***** 加载中 *****";
 static const char* LOADINGSUCCESS = "\t\t*** 加载成功! ***";
 static const char* LOGINOUT = "\t\t*** 注销成功！***";
+static const char* ERRO_FINDING_USER = "\t\t***** 未找到该用户！*****";
 
-void welcomeMessage() 
-{
+void welcomeMessage() {
     printf("\n%s%sWelcome to%s\n", BOLD, FRONT_RED, RESET);
     printf("%s%s%s%s\n", FRONT_BLUE, BOLD, BANNER, RESET);
     printf("%s%s%s\n\n", FRONT_PURPLR, DESIGNERS, RESET);
 }
 
-void exitMessage()
-{
+void exitMessage() {
     printf("%s%s%s%s\n", BOLD, FRONT_RED, EXIT, RESET);
     printf("\n%s%s%s%s\n", FRONT_RED, BOLD, GOODBYE, RESET);
     printf("%s%s%s\n", FRONT_YELLOW, NEXTTIME, RESET);
@@ -61,3 +60,9 @@ void failureMessage() {printf("%s%s%s\n", FRONT_RED, FAILURE, RESET);}
 void loadingMessage(){printf("%s%s%s%s\n\n", BOLD, TWINKLING, LOADING, RESET);}
 
 void loadingSuccess(){printf("%s%s%s%s\n\n", BOLD, FRONT_RED, LOADINGSUCCESS, RESET);}
+
+void loginFailureMessage(){printf("%s%s%s%s\n\n", BOLD, FRONT_RED, LOGINFAILURE, RESET);}
+
+void loginSuccessMessage(){printf("%s%s%s%s\n\n", BOLD, FRONT_BLUE, LOGINSUCCESS, RESET);}
+
+void errorFindingUser(){printf("%s%s%s\n\n", FRONT_RED, ERRO_FINDING_USER, RESET);}

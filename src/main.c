@@ -1,8 +1,6 @@
 #include "tools/hint.h"
 #include "interface/interface.h"
-#include "config.h"
 #include <unistd.h>
-#include <stdio.h>
 
 int main()
 {

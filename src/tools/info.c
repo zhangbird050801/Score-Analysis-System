@@ -3,7 +3,13 @@
 #include <string.h>
 #include <time.h>
 
-void getTime(char* s)
+
+/**
+ * @brief 获取时间
+ * @param {char*} s 
+ * @return {*}
+ */
+void getTtime(char* s)
 {
     // 计算当前日历时间 time_t 格式来存储时间
     time_t time_now;
