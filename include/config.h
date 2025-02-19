@@ -7,5 +7,7 @@
 #define MAX_PASSWORD_LENGTH 20 
 #define MAX_USER_NUMBER 200
 #define MAX_ID_LENGTH 20
+#define MAX_SUBJECT_NUM 10
+#define MAX_STUDENT_NUM 100
 
 #endif

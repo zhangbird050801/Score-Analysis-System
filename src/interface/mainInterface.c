@@ -17,6 +17,9 @@ void makeInterface(Menu type, HANDLE handler[])
     }
 }
 
+/**
+ * @brief 主界面
+ */
 void mainInterface() {
     makeInterface(MAIN, handler);
 }

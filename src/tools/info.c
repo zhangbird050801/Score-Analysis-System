@@ -6,7 +6,7 @@
 // 保留上一次最大的 ID
 static const char* FILEPATH = "src/Data/maxId.txt";
 
-// type: U-用户 S-学生 O-学科
+// type: U-用户 S-学科
 // ID 只和时间顺序有关，如果有数据被删了，ID 也不会被新的 ID 填补
 
 /**
@@ -32,8 +32,8 @@ void getTime(char* s) {
  * @param type
  */
 void generateId(char* s, char type) {
-    int uid, gid, oid;
-    uid = gid = oid = 0;
+    int uid, sid;
+    uid = sid = 0;
 
     FILE* ptr = fopen(FILEPATH, "r");
     
@@ -42,7 +42,7 @@ void generateId(char* s, char type) {
         return ;
     }
     else{
-        fscanf(ptr, "%d%d%d", &uid, &gid, &oid);
+        fscanf(ptr, "%d%d%d", &uid, &sid);
         fclose(ptr);
     }
     
@@ -53,13 +53,12 @@ void generateId(char* s, char type) {
             ID = uid ++;
             break;
         case 'T':
-            ID = oid ++;
+            ID = sid ++;
             break;
     }
 
-    sprintf(s, "%c%05d", type, ID);// 意思就是 向 s 中写入 %c%05d 这样的字符串
+    sprintf(s, "%c%05d", type, ID); // 向 s 中写入 %c%05d 这样的字符串
     ptr = fopen(FILEPATH, "w");
-    // 在 filepath 文件中显示 uid mid oid 的值
-    fprintf(ptr, "%d %d %d\n", uid, gid, oid);
+    fprintf(ptr, "%d %d %d\n", uid, sid);
     fclose(ptr);
 }

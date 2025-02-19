@@ -1,8 +1,8 @@
 #include "interface/interface.h"
 
-static const char* FILEPATH = "src/Data/User.txt"; // 用户信息存储地址
+static const char* FILEPATH = "src/Data/User.txt"; 
 static User users[MAX_USER_NUMBER]; 
-static int totalUser = 0; // 用户总数
+static int totalUser = 0; 
 
 /**
  * @brief 获取用户

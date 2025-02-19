@@ -7,6 +7,9 @@
 #include "tools/info.h"
 #include "config.h"
 #include "user/user.h"
+#include "student/student.h"
+#include "major/major.h"
+#include "subject/subject.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
