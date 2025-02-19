@@ -6,6 +6,7 @@
 #include "tools/hint.h"
 #include "tools/info.h"
 #include "config.h"
+#include "user/user.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -13,19 +14,37 @@
 
 extern int nowUser;
 
-typedef void (*HANDLE)(void); // 定义函数指针
+typedef void (*HANDLE)(void); // 函数指针
 
 void makeInterface(Menu type, HANDLE handler[]);
 
 /* mainInterface */
 void mainInterface();
 void userLogin();
+void adminLogin();
 void userLoginSuccess(char *username);
 void getName(char* name);
 void getPassword(char* password);
 void tryAgain(char *username, char *password, int cnt);
 
 /* userInterface */
+void userInterface();
 
+/* adminInterface */
+
+/* sortInterface */
+void sortInterface();
+
+/* analyzeInterface */
+void analyzeInterface();
+
+/* searchInterface */
+void searchInterface();
+
+/* scoreInterface */
+void scoreInterface();
+
+/* modifyInterface */
+void modifyInterface();
 
 #endif

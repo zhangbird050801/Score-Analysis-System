@@ -17,7 +17,9 @@ void makeInterface(Menu type, HANDLE handler[])
     }
 }
 
-void mainInterface() {makeInterface(MAIN, handler);}
+void mainInterface() {
+    makeInterface(MAIN, handler);
+}
 
 /**
  * @brief 用户登录
@@ -34,6 +36,7 @@ void userLogin()
     puts("");
 
     int flag = check(username, password); // -1 表示未查找到用户 1 表示查找到对应的用户
+    
     if(flag == -1)
         errorFindingUser(), failureMessage();
     else if(check(username, password))
@@ -45,6 +48,14 @@ void userLogin()
 }
 
 /**
+ * @brief 系统管理员登录
+ */
+// TODO: 系统管理员登录
+void adminLogin() {
+    
+}
+
+/**
  * @brief 用户登录成功
  * @param username 用户名
  */
@@ -52,7 +63,7 @@ void userLoginSuccess(char *username)
 {
     nowUser = searchByUserName(username);
     loginSuccessMessage();
-    USER_Interface();
+    // userInterface();
 }
 
 /**
@@ -91,7 +102,6 @@ void getPassword(char* password) {
     }
     password[i] = '\0';
     
-    // 恢复终端设置
     tcsetattr(fileno(stdin), TCSANOW, &oldAttr);
 }
 
@@ -104,7 +114,7 @@ void getPassword(char* password) {
 void tryAgain(char *username, char *password, int cnt) // 重新尝试
 {
     if(cnt == 0){
-        printf("%s%s%s您的次数已用完！\n%s", BOLD, UNDERLINE, FRONT_RED, RESET);
+        printf("%s%s%s您的次数已用完!\n%s", BOLD, UNDERLINE, FRONT_RED, RESET);
         exitMessage();
         exit(0);
     }

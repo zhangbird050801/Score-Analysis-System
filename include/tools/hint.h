@@ -2,13 +2,12 @@
 #define _HINT_H_
 
 void welcomeMessage();
-
 void exitMessage();
-
 void failureMessage();
-
 void loadingMessage();
-
 void loadingSuccess();
+void loginSuccessMessage();
+void loginFailureMessage();
+void errorFindingUser();
 
 #endif

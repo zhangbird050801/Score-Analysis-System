@@ -4,20 +4,20 @@
  * @brief: 不同菜单的提示
  */
 static const char *menuPrompts[MENU_NUMBER] = {"\
-    +============+============+==============+========+ \n\
-    | 1.教师登录 | 2.用户注册 | 3.管理员登录 | 4.退出 | \n\
-    +============+============+==============+========+ \n", \
+    +============+==============+========+ \n\
+    | 1.教师登录 | 3.管理员登录 | 4.退出 | \n\
+    +============+==============+========+ \n", \
     "\
     +============+============+================+============+ \n\
     | 1.我是买家 | 2.我是卖家 | 3.个人信息管理 | 4.注销登陆 | \n\
     +============+============+================+============+ \n"
 };
 
-static const char *menuName[MENU_NUMBER] = {"Main"};
+static const char *menuName[MENU_NUMBER] = {"Main", "User"};
 
 static const char *tapNum[MENU_NUMBER] = {"\t\t      "};
 
-const int optionNumber[MENU_NUMBER] = {4};
+const int optionNumber[MENU_NUMBER] = {4, 7};
 
 /**
  * @brief: 操作提示
@@ -35,7 +35,7 @@ static void promptMessage(Menu type){
  */
 int menu(Menu type)
 {
-    PromptMessage(type);
+    promptMessage(type);
     char buffer[MAX_LEN]; 
     int res;
     scanf("%s", buffer);
