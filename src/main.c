@@ -6,6 +6,7 @@ int main()
 {
     // 从文件中加载数据
     loadUser();
+    loadStudent();
 
     welcomeMessage(); // 初始界面信息
 

@@ -42,7 +42,7 @@ void generateId(char* s, char type) {
         return ;
     }
     else{
-        fscanf(ptr, "%d%d%d", &uid, &sid);
+        fscanf(ptr, "%d%d", &uid, &sid);
         fclose(ptr);
     }
     
@@ -59,6 +59,6 @@ void generateId(char* s, char type) {
 
     sprintf(s, "%c%05d", type, ID); // 向 s 中写入 %c%05d 这样的字符串
     ptr = fopen(FILEPATH, "w");
-    fprintf(ptr, "%d %d %d\n", uid, sid);
+    fprintf(ptr, "%d %d\n", uid, sid);
     fclose(ptr);
 }

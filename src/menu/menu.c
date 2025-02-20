@@ -5,19 +5,19 @@
  */
 static const char *menuPrompts[MENU_NUMBER] = {"\
     +============+==============+========+ \n\
-    | 1.教师登录 | 3.管理员登录 | 4.退出 | \n\
+    | 1.教师登录 | 2.管理员登录 | 3.退出 | \n\
     +============+==============+========+ \n", \
     "\
     +============+============+================+============+ \n\
-    | 1.我是买家 | 2.我是卖家 | 3.个人信息管理 | 4.注销登陆 | \n\
+    | 1.成绩排序 | 2.成绩分析 | 3.成绩查询 | 4.成绩录入与修改 | 5.个人信息修改 | 6.注销登录  \n\
     +============+============+================+============+ \n"
 };
 
 static const char *menuName[MENU_NUMBER] = {"Main", "User"};
 
-static const char *tapNum[MENU_NUMBER] = {"\t\t      "};
+static const char *tapNum[MENU_NUMBER] = {"\t\t      ", "\t\t      "};
 
-const int optionNumber[MENU_NUMBER] = {4, 7};
+const int optionNumber[MENU_NUMBER] = {4, 6};
 
 /**
  * @brief: 操作提示

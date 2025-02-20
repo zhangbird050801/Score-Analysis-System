@@ -43,6 +43,7 @@ void analyzeInterface();
 
 /* searchInterface */
 void searchInterface();
+void searchById();
 
 /* scoreInterface */
 void scoreInterface();

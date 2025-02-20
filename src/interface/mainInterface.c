@@ -42,8 +42,9 @@ void userLogin()
     
     if(flag == -1)
         errorFindingUser(), failureMessage();
-    else if(check(username, password))
+    else if(check(username, password)) {
         userLoginSuccess(username);
+    }
     else{
         loginFailureMessage();
         tryAgain(username, password, 3);
@@ -66,7 +67,7 @@ void userLoginSuccess(char *username)
 {
     nowUser = searchByUserName(username);
     loginSuccessMessage();
-    // userInterface();
+    userInterface();
 }
 
 /**
