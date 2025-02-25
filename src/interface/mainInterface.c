@@ -3,6 +3,9 @@
 
 static HANDLE handler[] = {userLogin};
 
+// TODO: 管理员账号密码保存地址
+
+
 /**
  * @brief 菜单逻辑
  * @param type 菜单类型
@@ -55,9 +58,7 @@ void userLogin()
  * @brief 系统管理员登录
  */
 // TODO: 系统管理员登录
-void adminLogin() {
-    
-}
+
 
 /**
  * @brief 用户登录成功
