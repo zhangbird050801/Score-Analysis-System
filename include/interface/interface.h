@@ -53,5 +53,4 @@ void scoreInterface();
 /* modifyInterface */
 void modifyInterface();
 
-//test
 #endif
