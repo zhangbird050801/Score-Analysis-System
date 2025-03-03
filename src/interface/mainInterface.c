@@ -3,9 +3,6 @@
 
 static HANDLE handler[] = {userLogin, adminLogin};
 
-// TODO: 管理员账号密码保存地址
-
-
 /**
  * @brief 菜单逻辑
  * @param type 菜单类型
@@ -59,9 +56,32 @@ void userLogin()
  */
 // TODO: 系统管理员登录
 void adminLogin() {
+    getchar(); 
+
+    char adminname[MAX_NAME_LENGTH];
+    char password[MAX_PASSWORD_LENGTH];
+
+    getName(adminname);
+    getPassword(password); 
+    puts("");
+
+    if((strcmp(adminname,ADMIN_NAME) == 0)&&(strcmp(password,ADMIN_PASSWORD) == 0)){
+        adminLoginSuccess();
+    }else{
+        loginFailureMessage();
+    }
+
 
 }
 
+/**
+ * @brief 管理员登陆成功
+ */
+void adminLoginSuccess(){
+    loginSuccessMessage();
+    // 
+   
+}
 
 /**
  * @brief 用户登录成功

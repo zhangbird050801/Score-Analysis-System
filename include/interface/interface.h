@@ -29,6 +29,7 @@ void userLoginSuccess(char *username);
 void getName(char* name);
 void getPassword(char* password);
 void tryAgain(char *username, char *password, int cnt);
+void adminLoginSuccess();
 
 /* userInterface */
 void userInterface();
