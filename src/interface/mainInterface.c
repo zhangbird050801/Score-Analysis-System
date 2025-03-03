@@ -1,7 +1,7 @@
 #include "interface/interface.h"
 #include <termios.h>
 
-static HANDLE handler[] = {userLogin};
+static HANDLE handler[] = {userLogin, adminLogin};
 
 // TODO: 管理员账号密码保存地址
 
@@ -58,6 +58,9 @@ void userLogin()
  * @brief 系统管理员登录
  */
 // TODO: 系统管理员登录
+void adminLogin() {
+
+}
 
 
 /**

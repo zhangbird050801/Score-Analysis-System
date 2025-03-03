@@ -16,5 +16,6 @@ void loadUser();
 void outUser();
 int check(char *name, char *pwd);
 int searchByUserName(char *name);
+int searchByUserId(char *id);
 
 #endif

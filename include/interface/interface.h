@@ -34,6 +34,7 @@ void tryAgain(char *username, char *password, int cnt);
 void userInterface();
 
 /* adminInterface */
+void adminLogin();
 
 /* sortInterface */
 void sortInterface();

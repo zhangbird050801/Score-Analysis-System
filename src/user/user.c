@@ -57,9 +57,13 @@ int check(char *name, char *pwd) {
  * @return -1 表示未查找到用户 否则返回用户下标
  */
 int searchByUserName(char *name) {
-    // TODO: 改为二分查找
     for(int i = 0; i < totalUser; i ++) {
         if(strcmp(users[i].name, name) == 0) return i;
     }
     return -1;
+}
+
+// TODO: 二分查找
+int searchByUserId(char *id) {
+    
 }
