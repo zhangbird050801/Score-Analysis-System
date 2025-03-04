@@ -1,12 +1,27 @@
 #include "interface/interface.h"
 
-// TODO: 获取专业信息存储路径
+static const char* FILEPATH = "src/Data/Major.txt";
+static Major majors[MAX_MAJOR_NUM];   
+static int totalMajor = 0; 
 
-// TODO: 创建专业信息数组
-
-// TODO: 专业总数
-
-// TODO: 加载专业信息
+/**
+ * @brief 加载专业信息
+ */
 void loadMajor() {
-    
+    FILE *maj = fopen(FILEPATH,"r");
+    while(fscanf(maj,"%s%s",majors[totalMajor].id,\
+        majors[totalMajor].name) != EOF){
+            totalMajor ++;
+        }
+    fclose(maj);
+}
+
+/**
+ * @brief 打印专业信息
+ */
+void printMajor(){
+    int i ;
+    for(i = 0;i < totalMajor;i++){
+        printf("%s %s\n",majors[i].id,majors[i].name);
+    }
 }

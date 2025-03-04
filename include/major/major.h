@@ -7,8 +7,9 @@ typedef struct
 {
     char id[MAX_ID_LENGTH];
     char name[MAX_NAME_LENGTH];
-} major;
+} Major;
 
 void loadMajor();
+void printMajor();
 
 #endif 

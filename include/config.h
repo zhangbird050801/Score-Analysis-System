@@ -8,6 +8,7 @@
 #define MAX_USER_NUMBER 200
 #define MAX_ID_LENGTH 300
 #define MAX_SUBJECT_NUM 100
+#define MAX_MAJOR_NUM 10
 #define MAX_STUDENT_NUM 100
 #define MAX_LINE_LENGTH 1024
 #define ADMIN_NAME "admin"
