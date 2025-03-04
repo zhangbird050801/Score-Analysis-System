@@ -7,7 +7,7 @@ typedef struct {
     char id[MAX_ID_LENGTH];
     char name[MAX_NAME_LENGTH];
     double credit;
-} subject;
+}Subject;
 
 void loadSubjects();
 void printSubject();

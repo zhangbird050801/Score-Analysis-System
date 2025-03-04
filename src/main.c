@@ -5,8 +5,8 @@
 int main()
 {
     // 从文件中加载数据
-    // loadUser();
-    // loadStudent();
+    loadUser();
+    loadStudent();
     loadSubjects();
 
     welcomeMessage(); // 初始界面信息
@@ -20,7 +20,7 @@ int main()
     printSubject();
 
     // 输出文件
-    // outUser();
+    outUser();
 
     exitMessage(); // 退出信息
 

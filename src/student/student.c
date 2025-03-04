@@ -2,6 +2,7 @@
 
 static const char* FILEPATH = "src/Data/Student.txt";
 static student *studentById[MAX_STUDENT_NUM];
+// TODO: 学生名字哈希 
 static int totalStudent = 0;
 
 /**
