@@ -6,9 +6,9 @@ int main()
 {
     // 从文件中加载数据
     loadUser();
-    loadStudent();
     loadSubjects();
     loadMajor();
+    loadStudent();
 
     welcomeMessage(); // 初始界面信息
 
@@ -16,13 +16,12 @@ int main()
     loadingMessage();
     sleep(1);
     loadingSuccess();
-
-    mainInterface(); // 主交互界面
+    
+    //mainInterface(); // 主交互界面
 
     // test
     // printMajor();
     // printSubject();
-
     // 输出文件
     outUser();
 

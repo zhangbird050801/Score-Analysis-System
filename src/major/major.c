@@ -25,3 +25,24 @@ void printMajor(){
         printf("%s %s\n",majors[i].id,majors[i].name);
     }
 }
+
+/**
+ * @brief 转换专业编号为对应下标
+ * @param id:专业编号
+ */
+int idToIdx(char* id) {
+    int res = 0;
+    for(int i = 1; i < strlen(id); i ++) {
+        res = res * 10 + (id[i] - '0');
+    }
+    return res - 1;
+}
+
+/**
+ * @brief 将专业编号替换为专业名
+ * @param id：专业编号
+ */
+char* getMajorByIdx(char* id) {
+    int idx = idToIdx(id);
+    return majors[idx].name;
+}

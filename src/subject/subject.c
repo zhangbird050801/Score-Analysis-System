@@ -27,3 +27,25 @@ void printSubject(){
         printf("%s %s %.2lf\n", subjects[i].id, subjects[i].name, subjects[i].credit);
     }
 }
+
+/**
+ * @brief 转换学科编号为对应下标
+ * @param id:学科编号
+ */
+int idToidxOfSub(char *id){
+    int res = 0;
+    for(int i = 1; i < strlen(id);i++){
+        res = res * 10 +(id[i] - '0');
+    }
+    return res - 1;
+}
+
+
+/**
+ * @brief 将学科编号替换为学科名
+ * @param id:学科编号
+ */
+char* getSubjectByIdx(char *id){
+    int idx = idToidxOfSub(id);
+    return subjects[idx].name;
+}

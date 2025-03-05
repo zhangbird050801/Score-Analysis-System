@@ -11,5 +11,7 @@ typedef struct
 
 void loadMajor();
 void printMajor();
+int idToIdx(char* id);
+char* getMajorByIdx(char* id);
 
 #endif 

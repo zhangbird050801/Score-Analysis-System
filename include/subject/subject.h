@@ -11,5 +11,7 @@ typedef struct {
 
 void loadSubjects();
 void printSubject();
+int idToidxOfSub(char *id);
+char* getSubjectByIdx(char *id);
 
 #endif
