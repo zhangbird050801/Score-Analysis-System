@@ -88,15 +88,49 @@ student *searchByStudentId(char *id) {
     return NULL;
 }
 
+/**
+ * @brief 计算单科绩点（60分以下绩点为0）
+ */
+double countGPA(double score){
+    if(score>=60){
+        double gpa = 5 - (100 - score)/10;
+        return gpa;
+    }else{
+        return 0.0;
+    }
+
+}
+
 // TODO: 通过姓名查找学生，要处理同名的情况
 
-// TODO: 计算学生平均学分绩点
+/**
+ * @brief 计算平均绩点
+ */
+double countAverageGPA(student *stu){
 
-// TODO: 计算学生加权分数
+    double sum, credits = 0;
+    int i = 0;
+    for(i = 0;i < stu->subjectNum;i++){
+        sum = sum + countGPA(stu->scores[i].score) * getCreditByIdx(stu->scores[i].id);
+        credits += getCreditByIdx(stu->scores[i].id);
+    }
+    return sum / credits;
 
+}
 
-// TODO: 打印学生信息。并将专业编号转换为专业名称，将学科编号转换为学科名称。
-//       并且要计算学生平均学分绩点，加权分数。
+/**
+ * @brief 计算加权平均分
+ */
+double getWAM(student *stu){
+    double sum = 0,credits = 0;
+    int i = 0;
+    for(i = 0;i < stu->subjectNum;i ++){
+        sum = sum + stu->scores[i].score * getCreditByIdx(stu->scores[i].id);
+        credits += getCreditByIdx(stu->scores[i].id);
+    }
+    return sum / credits;
+}
+
 /**
  * @brief 打印学生信息
  * @param stu 学生
@@ -111,4 +145,8 @@ void printStudent(student *stu) {
         printf("%s %.2lf ", getSubjectByIdx(stu->scores[i].id), stu->scores[i].score);
     }
     printf("\n");
+    
+    printf("GPA: %.2lf\n",countAverageGPA(stu));
+    printf("WAM: %.2lf\n",getWAM(stu));
+
 }

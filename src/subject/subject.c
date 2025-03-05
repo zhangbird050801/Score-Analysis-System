@@ -49,3 +49,8 @@ char* getSubjectByIdx(char *id){
     int idx = idToidxOfSub(id);
     return subjects[idx].name;
 }
+
+double getCreditByIdx(char *id){
+    int idx = idToidxOfSub(id);
+    return subjects[idx].credit;
+}

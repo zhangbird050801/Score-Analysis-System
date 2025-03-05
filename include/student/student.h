@@ -24,5 +24,8 @@ void loadStudent();
 void addStudent(student *stu);
 void printStudent(student *stu);
 student *searchByStudentId(char *id);
+double countGPA(double score);
+double countAverageGPA(student *stu);
+double getWAM(student *stu);
 
 #endif

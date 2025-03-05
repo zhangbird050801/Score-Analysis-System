@@ -13,5 +13,6 @@ void loadSubjects();
 void printSubject();
 int idToidxOfSub(char *id);
 char* getSubjectByIdx(char *id);
+double getCreditByIdx(char *id);
 
 #endif
