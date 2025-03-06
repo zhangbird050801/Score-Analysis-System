@@ -1,46 +1,56 @@
 #include "interface/interface.h"
 
-// TODO: handler 创建
-static HANDLE handler[] = {inputScore, modifyScore};
+static HANDLE handler[] = {inputScore};
 
 void scoreInterface() {
-    // TODO:
-    // makeInterface(SCORE, handler);
+    makeInterface(SCORE, handler);
 }
 
+/**
+ * @brief 录入学生及成绩
+ */
 void inputScore() {
+    char id[MAX_ID_LENGTH], name[MAX_NAME_LENGTH], majorId[MAX_ID_LENGTH], subjectId[MAX_ID_LENGTH];
+    int grade, classId, subjectNum;
+
     printf("请输入学号：");
-    char id[MAX_ID_LENGTH];
     scanf("%s", id);
+
+    if(searchByStudentId(id) != NULL) {
+        addStudentError();
+        return;
+    }
+
     printf("请输入学生姓名: ");
-    char name[MAX_NAME_LENGTH];
     scanf("%s", name);
     printf("请输入学生专业序号: ");
-    char majorId[MAX_ID_LENGTH];
-    scanf("%d", majorId);
+    scanf("%s", majorId);
+    printf("请输入学生年级: ");
+    scanf("%d", &grade);
     printf("请输入学生班级序号: ");
-    int classId;
     scanf("%d", &classId);
     printf("请输入学生课程数: ");
-    int subjectNum;
     scanf("%d", &subjectNum);
-    stu = (student *)malloc(sizeof(student));
+
+    student *stu = (student *)malloc(sizeof(student));
     strcpy(stu->id, id);
     strcpy(stu->name, name);
-    stu->majorId = majorId;
+    strcpy(stu->major, majorId);
+    stu->grade = grade;
     stu->classId = classId;
     stu->subjectNum = subjectNum;
     for(int i = 0; i < subjectNum; i ++) {
-        printf("请输入第 %d 门课程的课程号: ", i + 1);
-        char subjectId[MAX_ID_LENGTH];
+        printf("请输入第 %s%s%d%s 门课程的课程号: ", BOLD, FRONT_YELLOW, i + 1, RESET);
         scanf("%s", subjectId);
-        printf("请输入第 %d 门课程的成绩: ", i + 1);
+        printf("请输入第 %s%s%d%s 门课程的成绩: ", BOLD, FRONT_YELLOW, i + 1, RESET);
         double score;
         scanf("%lf", &score);
         strcpy(stu->scores[i].id, subjectId);
         stu->scores[i].score = score;
     }
 
+    addStudent(stu);
+    addStudentSuccess();
 }
 
 // TODO: 修改成绩

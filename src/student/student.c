@@ -68,15 +68,19 @@ void loadStudent() {
 void outStudent() {
     FILE *ptr = fopen(FILEPATH, "w");
 
-    for(int i = 0; i < totalStudent; i ++) {
-        fprintf(ptr, "%s %s %s %d %d %d ", studentById[i]->id, studentById[i]->name, \
-            studentById[i]->major, studentById[i]->grade, studentById[i]->classId, studentById[i]->subjectNum
-        );
+    for(int i = 0; i < MAX_STUDENT_NUM; i ++) {
+        student *stu = studentById[i];
+        while (stu != NULL) {
+            fprintf(ptr, "%s %s %s %d %d %d ", stu->id, stu->name,
+                    stu->major, stu->grade, stu->classId, stu->subjectNum);
 
-        for(int j = 0; j < studentById[i]->subjectNum; j ++) {
-            fprintf(ptr, "%s %.2lf ", studentById[i]->scores[j].id, studentById[i]->scores[j].score);
+            for (int j = 0; j < stu->subjectNum; j++) {
+                fprintf(ptr, "%s %.2lf ", stu->scores[j].id, stu->scores[j].score);
+            }
+            fprintf(ptr, "\n");
+
+            stu = stu->next;
         }
-        fprintf(ptr, "\n");
     }
 
     fclose(ptr);

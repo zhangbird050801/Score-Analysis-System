@@ -43,6 +43,8 @@ static const char* LOADINGSUCCESS = "\t\t*** 加载成功! ***";
 static const char* LOGINOUT = "\t\t*** 注销成功！***";
 static const char* ERRO_FINDING_USER = "\t\t***** 未找到该用户！*****";
 static const char* ERRO_FINDING_STUDENT = "\t\t***** 未找到该学生！*****";
+static const char* ADD_STUDENT_SUCCESS = "\t\t***** 添加学生成功！*****";
+static const char* ADD_STUDENT_ERROR = "\t***** 该学号已存在，添加失败！*****";
 
 void welcomeMessage() {
     printf("\n%s%sWelcome to%s\n", BOLD, FRONT_RED, RESET);
@@ -69,3 +71,7 @@ void loginSuccessMessage(){printf("%s%s%s%s\n\n", BOLD, FRONT_BLUE, LOGINSUCCESS
 void errorFindingUser(){printf("%s%s%s\n\n", FRONT_RED, ERRO_FINDING_USER, RESET);}
 
 void errorFindingStudent(){printf("\n%s%s%s\n\n", FRONT_RED, ERRO_FINDING_STUDENT, RESET);}
+
+void addStudentSuccess(){printf("\n%s%s%s\n\n", FRONT_PURPLR, ADD_STUDENT_SUCCESS, RESET);}
+
+void addStudentError(){printf("\n%s%s%s\n\n", FRONT_RED, ADD_STUDENT_ERROR, RESET);}

@@ -10,5 +10,7 @@ void loginSuccessMessage();
 void loginFailureMessage();
 void errorFindingUser();
 void errorFindingStudent();
+void addStudentSuccess();
+void addStudentError();
 
 #endif
