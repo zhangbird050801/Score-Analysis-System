@@ -76,7 +76,7 @@ void adminLogin() {
  */
 void adminLoginSuccess(){
     loginSuccessMessage();
-    // 
+    adminInterface();
 }
 
 /**

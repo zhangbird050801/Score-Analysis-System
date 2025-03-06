@@ -35,7 +35,9 @@ void adminLoginSuccess();
 void userInterface();
 
 /* adminInterface */
+void adminInterface();
 void adminLogin();
+void addUser();
 
 /* sortInterface */
 void sortInterface();
@@ -54,5 +56,6 @@ void modifyScore();
 
 /* modifyInterface */
 void modifyInterface();
+void modifyPassword();
 
 #endif

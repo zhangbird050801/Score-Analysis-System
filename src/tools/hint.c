@@ -45,6 +45,8 @@ static const char* ERRO_FINDING_USER = "\t\t***** 未找到该用户！*****";
 static const char* ERRO_FINDING_STUDENT = "\t\t***** 未找到该学生！*****";
 static const char* ADD_STUDENT_SUCCESS = "\t\t***** 添加学生成功！*****";
 static const char* ADD_STUDENT_ERROR = "\t***** 该学号已存在，添加失败！*****";
+static const char* MODIFY_PASSWORD_ERROR = "\t\t***两次输入的新密码不一致!***";
+static const char* MODIFY_PASSWARD_SUCCESS = "\t\t*****密码修改成功！*****";
 
 void welcomeMessage() {
     printf("\n%s%sWelcome to%s\n", BOLD, FRONT_RED, RESET);
@@ -75,3 +77,7 @@ void errorFindingStudent(){printf("\n%s%s%s\n\n", FRONT_RED, ERRO_FINDING_STUDEN
 void addStudentSuccess(){printf("\n%s%s%s\n\n", FRONT_PURPLR, ADD_STUDENT_SUCCESS, RESET);}
 
 void addStudentError(){printf("\n%s%s%s\n\n", FRONT_RED, ADD_STUDENT_ERROR, RESET);}
+
+void modifyPasswordError(){printf("\n%s%s%s\n\n", FRONT_RED, MODIFY_PASSWORD_ERROR, RESET);}
+
+void modifyPasswardSuccess(){printf("\n%s%s%s%s\n\n",BOLD,FRONT_GREEN,MODIFY_PASSWARD_SUCCESS,RESET);}

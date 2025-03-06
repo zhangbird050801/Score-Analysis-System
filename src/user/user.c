@@ -9,7 +9,7 @@ static int totalUser = 0;
  * @param idx 用户编号
  */
 User *getUser(int idx) {
-    return users + idx;
+    return users + idx; //users[idx]
 }
 
 /**
@@ -66,4 +66,13 @@ int searchByUserName(char *name) {
 // TODO: 二分查找
 int searchByUserId(char *id) {
     
+}
+
+void addNewUser(char* name,char* password){
+    User adduser;
+    // TODO: 生成用户ID
+    strcpy(adduser.name,name);
+    strcpy(adduser.password,password);
+    users[totalUser] = adduser;
+    totalUser ++;
 }

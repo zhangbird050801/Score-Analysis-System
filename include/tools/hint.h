@@ -12,5 +12,7 @@ void errorFindingUser();
 void errorFindingStudent();
 void addStudentSuccess();
 void addStudentError();
+void modifyPasswordError();
+void modifyPasswardSuccess();
 
 #endif

@@ -17,5 +17,6 @@ void outUser();
 int check(char *name, char *pwd);
 int searchByUserName(char *name);
 int searchByUserId(char *id);
+void addNewUser(char* name,char* password);
 
 #endif
