@@ -17,13 +17,14 @@ int main()
     sleep(1);
     loadingSuccess();
     
-    //mainInterface(); // 主交互界面
+    mainInterface(); // 主交互界面
 
     // test
     // printMajor();
     // printSubject();
     // 输出文件
     outUser();
+    outStudent();
 
     exitMessage(); // 退出信息
 

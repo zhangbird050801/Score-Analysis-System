@@ -9,5 +9,6 @@ void loadingSuccess();
 void loginSuccessMessage();
 void loginFailureMessage();
 void errorFindingUser();
+void errorFindingStudent();
 
 #endif

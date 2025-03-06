@@ -54,7 +54,6 @@ void userLogin()
 /**
  * @brief 系统管理员登录
  */
-// TODO: 系统管理员登录
 void adminLogin() {
     getchar(); 
 
@@ -70,8 +69,6 @@ void adminLogin() {
     }else{
         loginFailureMessage();
     }
-
-
 }
 
 /**
@@ -80,7 +77,6 @@ void adminLogin() {
 void adminLoginSuccess(){
     loginSuccessMessage();
     // 
-   
 }
 
 /**

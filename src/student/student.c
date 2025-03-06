@@ -53,12 +53,33 @@ void loadStudent() {
 
         addStudent(stu);
 
-        printStudent(stu); 
+        // 测试用
+        // printStudent(stu); 
 
         totalStudent ++;
     }
 
     fclose(file);
+}
+
+/**
+ * @brief 输出学生信息到文件
+ */
+void outStudent() {
+    FILE *ptr = fopen(FILEPATH, "w");
+
+    for(int i = 0; i < totalStudent; i ++) {
+        fprintf(ptr, "%s %s %s %d %d %d ", studentById[i]->id, studentById[i]->name, \
+            studentById[i]->major, studentById[i]->grade, studentById[i]->classId, studentById[i]->subjectNum
+        );
+
+        for(int j = 0; j < studentById[i]->subjectNum; j ++) {
+            fprintf(ptr, "%s %.2lf ", studentById[i]->scores[j].id, studentById[i]->scores[j].score);
+        }
+        fprintf(ptr, "\n");
+    }
+
+    fclose(ptr);
 }
 
 /**
@@ -105,6 +126,7 @@ double countGPA(double score){
 
 /**
  * @brief 计算平均绩点
+ * @param stu 学生
  */
 double countAverageGPA(student *stu){
 
@@ -120,6 +142,7 @@ double countAverageGPA(student *stu){
 
 /**
  * @brief 计算加权平均分
+ * @param stu 学生
  */
 double getWAM(student *stu){
     double sum = 0,credits = 0;

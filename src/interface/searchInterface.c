@@ -7,7 +7,9 @@ void searchInterface() {
     makeInterface(SEARCH, handler);
 }
 
-// TODO: 根据学号查找学生
+/**
+ * @brief 根据学号查找指定学生
+ */
 void searchById(){
     printf("请输入学号：");
     char id[MAX_ID_LENGTH];
@@ -15,11 +17,11 @@ void searchById(){
     student *stu = searchByStudentId(id);
     
     if(stu == NULL) {
-        printf("未找到学号为 %s 的学生\n", id);
+        errorFindingStudent();
+        failureMessage();
         return;
     }
 
-    // TODO: 打印学生信息
     printStudent(stu);
 }
 

@@ -49,6 +49,8 @@ void searchById();
 
 /* scoreInterface */
 void scoreInterface();
+void inputScore();
+void modifyScore();
 
 /* modifyInterface */
 void modifyInterface();

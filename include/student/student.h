@@ -21,6 +21,7 @@ typedef struct student {
 } student;
 
 void loadStudent();
+void outStudent();
 void addStudent(student *stu);
 void printStudent(student *stu);
 student *searchByStudentId(char *id);
