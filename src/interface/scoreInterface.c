@@ -16,7 +16,7 @@ void inputScore() {
     printf("请输入学号：");
     scanf("%s", id);
 
-    if(searchByStudentId(id) != NULL) {
+    if(searchStudentById(id) != NULL) {
         addStudentError();
         return;
     }

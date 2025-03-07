@@ -2,7 +2,7 @@
 
 static const char* FILEPATH = "src/Data/Student.txt";
 static student *studentById[MAX_STUDENT_NUM];
-// TODO: 学生名字哈希 
+static student *studentByName[MAX_STUDENT_NUM];
 static int totalStudent = 0;
 
 /**
@@ -91,17 +91,21 @@ void outStudent() {
  * @param stu 学生
  */
 void addStudent(student *stu) {
-    unsigned int idx = hash(stu->id);
+    unsigned int idxById = hash(stu->id);
+    unsigned int idxByName = hash(stu->name);
 
-    stu->next = studentById[idx];
-    studentById[idx] = stu;
+    stu->next = studentById[idxById];
+    stu->next = studentByName[idxByName];
+
+    studentById[idxById] = stu;
+    studentByName[idxByName] = stu;
 }
 
 /**
  * @brief 通过学号查找学生
  * @param id 学号
  */
-student *searchByStudentId(char *id) {
+student *searchStudentById(char *id) {
     unsigned int idx = hash(id);
     student *stu = studentById[idx];
     while(stu != NULL) {
@@ -111,6 +115,27 @@ student *searchByStudentId(char *id) {
         stu = stu->next;
     }
     return NULL;
+}
+
+void searchStudentByName(char *name){
+   
+    unsigned int idx = hash(name);
+    student *stu = studentByName[idx];
+    int key = 0; 
+
+    while (stu) {
+        if (strcmp(stu->name, name) == 0) {
+            printf("姓名: %s   学号:%s\n", stu->name, stu->id);
+            printStudent(stu);
+            printf("\n");
+            key = 1;
+        }
+        stu = stu->next;
+    }
+
+    if(key == 0){
+        printf("未找到名字为%s的学生",name);
+    }
 }
 
 /**
@@ -126,7 +151,6 @@ double countGPA(double score){
 
 }
 
-// TODO: 通过姓名查找学生，要处理同名的情况
 
 /**
  * @brief 计算平均绩点

@@ -13,7 +13,7 @@ void searchById(){
     printf("请输入学号：");
     char id[MAX_ID_LENGTH];
     scanf("%s", id);
-    student *stu = searchByStudentId(id);
+    student *stu = searchStudentById(id);
     
     if(stu == NULL) {
         errorFindingStudent();
@@ -26,5 +26,8 @@ void searchById(){
 
 // TODO: 根据姓名查找学生
 void searchByName() {
-
+    printf("请输入要查找的学生姓名：");
+    char name[MAX_NAME_LENGTH];
+    scanf("%s",name);
+    searchStudentByName(name);
 }
