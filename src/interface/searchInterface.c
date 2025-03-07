@@ -1,7 +1,6 @@
 #include "interface/interface.h"
 
-// TODO:
-static HANDLE handler[] = {searchById};
+static HANDLE handler[] = {searchById, searchByName};
 
 void searchInterface() {
     makeInterface(SEARCH, handler);
@@ -26,3 +25,6 @@ void searchById(){
 }
 
 // TODO: 根据姓名查找学生
+void searchByName() {
+
+}

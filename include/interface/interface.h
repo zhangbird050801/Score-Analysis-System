@@ -41,13 +41,18 @@ void addUser();
 
 /* sortInterface */
 void sortInterface();
+void sortByGrade();
+void sortByClass();
 
 /* analyzeInterface */
 void analyzeInterface();
+void analyzeGrade();
+void analyzeClass();
 
 /* searchInterface */
 void searchInterface();
 void searchById();
+void searchByName();
 
 /* scoreInterface */
 void scoreInterface();

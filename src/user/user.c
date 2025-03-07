@@ -68,11 +68,16 @@ int searchByUserId(char *id) {
     
 }
 
+/**
+ * @brief 添加新用户
+ * @param name 用户名
+ * @param password 密码
+ */
 void addNewUser(char* name,char* password){
-    User adduser;
-    // TODO: 生成用户ID
-    strcpy(adduser.name,name);
-    strcpy(adduser.password,password);
-    users[totalUser] = adduser;
-    totalUser ++;
+    User user;
+    generateId(user.id, 'U');
+    strcpy(user.name,name);
+    strcpy(user.password,password);
+    users[totalUser ++] = user;
+    addUserSuccess();
 }

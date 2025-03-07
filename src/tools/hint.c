@@ -1,6 +1,6 @@
 #include "tools/hint.h"
 #include "tools/color.h"
-#include <stdio.h>
+#include "tools/info.h"
 
 static const char* BANNER = "\
 \t   _____                                         _           _        _____           _                 _      \n\
@@ -46,12 +46,16 @@ static const char* ERRO_FINDING_STUDENT = "\t\t***** 未找到该学生！*****"
 static const char* ADD_STUDENT_SUCCESS = "\t\t***** 添加学生成功！*****";
 static const char* ADD_STUDENT_ERROR = "\t***** 该学号已存在，添加失败！*****";
 static const char* MODIFY_PASSWORD_ERROR = "\t\t***两次输入的新密码不一致!***";
-static const char* MODIFY_PASSWARD_SUCCESS = "\t\t*****密码修改成功！*****";
+static const char* MODIFY_PASSWORD_SUCCESS = "\t\t*****修改密码成功！*****";
+static const char* SYSTEM_LOCAL_DATE_TIME = "当前系统时间为: ";
+static const char* ADD_USER_SUCCESS = "\t\t***** 添加用户成功！*****";
+static const char* ADD_USER_ERROR = "\t\t** 该用户名已存在, 添加失败！**";
 
 void welcomeMessage() {
     printf("\n%s%sWelcome to%s\n", BOLD, FRONT_RED, RESET);
     printf("%s%s%s%s\n", FRONT_BLUE, BOLD, BANNER, RESET);
     printf("%s%s%s\n\n", FRONT_PURPLR, DESIGNERS, RESET);
+    printf("%s%s%s%s%s%s%s\n\n", FRONT_YELLOW, SYSTEM_LOCAL_DATE_TIME, RESET, FRONT_BLUE, UNDERLINE, getTime(), RESET);
 }
 
 void exitMessage() {
@@ -80,4 +84,8 @@ void addStudentError(){printf("\n%s%s%s\n\n", FRONT_RED, ADD_STUDENT_ERROR, RESE
 
 void modifyPasswordError(){printf("\n%s%s%s\n\n", FRONT_RED, MODIFY_PASSWORD_ERROR, RESET);}
 
-void modifyPasswardSuccess(){printf("\n%s%s%s%s\n\n",BOLD,FRONT_GREEN,MODIFY_PASSWARD_SUCCESS,RESET);}
+void modifyPasswordSuccess(){printf("\n%s%s%s%s\n\n",BOLD,FRONT_GREEN,MODIFY_PASSWORD_SUCCESS,RESET);}
+
+void addUserSuccess(){printf("\n%s%s%s\n\n", FRONT_PURPLR, ADD_USER_SUCCESS, RESET);}
+
+void addUserError(){printf("\n%s%s%s\n\n", FRONT_RED, ADD_USER_ERROR, RESET);}

@@ -1,13 +1,18 @@
 #include "interface/interface.h"
 
 // TODO:
-static HANDLE handler[] = {};
+static HANDLE handler[] = {sortByGrade, sortByClass};
 
 void sortInterface() {
-    // TODO:
-    // makeInterface(SORT, handler);
+    makeInterface(SORT, handler);
 }
 
 // TODO: 按照专业年级排序
+void sortByGrade() {
+
+}
 
 // TODO: 按照班级排序
+void sortByClass() {
+
+}

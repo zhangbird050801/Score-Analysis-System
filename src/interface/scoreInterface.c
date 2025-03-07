@@ -1,6 +1,6 @@
 #include "interface/interface.h"
 
-static HANDLE handler[] = {inputScore};
+static HANDLE handler[] = {inputScore, modifyScore};
 
 void scoreInterface() {
     makeInterface(SCORE, handler);
@@ -25,6 +25,9 @@ void inputScore() {
     scanf("%s", name);
     printf("请输入学生专业序号: ");
     scanf("%s", majorId);
+
+    // TODO: 如果该专业序号不存在，则添加
+
     printf("请输入学生年级: ");
     scanf("%d", &grade);
     printf("请输入学生班级序号: ");
@@ -42,6 +45,9 @@ void inputScore() {
     for(int i = 0; i < subjectNum; i ++) {
         printf("请输入第 %s%s%d%s 门课程的课程号: ", BOLD, FRONT_YELLOW, i + 1, RESET);
         scanf("%s", subjectId);
+
+        // TODO: 如果该课程号不存在，则添加
+
         printf("请输入第 %s%s%d%s 门课程的成绩: ", BOLD, FRONT_YELLOW, i + 1, RESET);
         double score;
         scanf("%lf", &score);

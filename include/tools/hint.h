@@ -13,6 +13,8 @@ void errorFindingStudent();
 void addStudentSuccess();
 void addStudentError();
 void modifyPasswordError();
-void modifyPasswardSuccess();
+void modifyPasswordSuccess();
+void addUserSuccess();
+void addUserError();
 
 #endif
