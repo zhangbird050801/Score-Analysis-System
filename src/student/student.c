@@ -118,7 +118,6 @@ student *searchStudentById(char *id) {
 }
 
 void searchStudentByName(char *name){
-   
     unsigned int idx = hash(name);
     student *stu = studentByName[idx];
     int key = 0; 
@@ -187,9 +186,9 @@ double getWAM(student *stu){
  * @param stu 学生
  */
 void printStudent(student *stu) {
-    // TODO: 添加头部信息提示
-    // 学号 姓名 专业 年级 班级 (不打印学科数目) 学科编号 学科分数 平均学分绩点 加权分数
-    printf("%s %s %s %d %d \n", stu->id, stu->name, getMajorByIdx(stu->major), \
+    printInfo();
+
+    printf("| %s | %s | %s |   %d   | %d | \n", stu->id, stu->name, getMajorByIdx(stu->major), \
         stu->grade, stu->classId
     );
     for(int i = 0; i < stu->subjectNum; i ++) {

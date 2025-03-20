@@ -24,7 +24,9 @@ void searchById(){
     printStudent(stu);
 }
 
-// TODO: 根据姓名查找学生
+/**
+ * @brief 根据姓名查找指定学生
+ */
 void searchByName() {
     printf("请输入要查找的学生姓名：");
     char name[MAX_NAME_LENGTH];

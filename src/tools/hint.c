@@ -51,6 +51,12 @@ static const char* SYSTEM_LOCAL_DATE_TIME = "当前系统时间为: ";
 static const char* ADD_USER_SUCCESS = "\t\t***** 添加用户成功！*****";
 static const char* ADD_USER_ERROR = "\t\t** 该用户名已存在, 添加失败！**";
 
+static const char* INFO = "\
++============+======+==================+========+======+======+==============+==========+==========+\n\
+|    学号    | 姓名 |        专业      |  年级  | 班级 | 平均学分绩点 | 加权分数 | 学科数目 | \n\
++============+======+==================+========+======+======+==============+==========+==========+\n\
+";
+
 void welcomeMessage() {
     printf("\n%s%sWelcome to%s\n", BOLD, FRONT_RED, RESET);
     printf("%s%s%s%s\n", FRONT_BLUE, BOLD, BANNER, RESET);
@@ -89,3 +95,5 @@ void modifyPasswordSuccess(){printf("\n%s%s%s%s\n\n",BOLD,FRONT_GREEN,MODIFY_PAS
 void addUserSuccess(){printf("\n%s%s%s\n\n", FRONT_PURPLR, ADD_USER_SUCCESS, RESET);}
 
 void addUserError(){printf("\n%s%s%s\n\n", FRONT_RED, ADD_USER_ERROR, RESET);}
+
+void printInfo(){printf("\n%s%s%s", BOLD, INFO, RESET);}

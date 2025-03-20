@@ -1,6 +1,5 @@
 #include "interface/interface.h"
 
-// TODO:
 static HANDLE handler[] = {sortByGrade, sortByClass};
 
 void sortInterface() {

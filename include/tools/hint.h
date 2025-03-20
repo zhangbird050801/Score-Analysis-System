@@ -16,5 +16,6 @@ void modifyPasswordError();
 void modifyPasswordSuccess();
 void addUserSuccess();
 void addUserError();
+void printInfo();
 
 #endif
