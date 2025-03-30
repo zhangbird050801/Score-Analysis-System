@@ -19,10 +19,12 @@ int main()
 
     loadingSuccess();
     
-    mainInterface(); // 主交互界面
+    // mainInterface(); // 主交互界面
 
-    outUser();
-    outStudent();
+    printStudentByMajor("M00001");
+
+    // outUser();
+    // outStudent();
 
     exitMessage(); // 退出信息
 

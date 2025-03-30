@@ -2,6 +2,9 @@
 #define _STUDENT_H_
 
 #include "config.h"
+#include <math.h>  // 用于fabs()函数
+#include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct {
     char id[MAX_ID_LENGTH];
@@ -30,5 +33,7 @@ double countGPA(double score);
 double countAverageGPA(student *stu);
 double getWAM(student *stu);
 
-
+int compare(const void *a, const void *b);
+void printStudentByMajor(const char *majorId);
+void quickSort(void *base, int left, int right, size_t size, int (*cmp)(const void *, const void *));
 #endif

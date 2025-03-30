@@ -155,17 +155,14 @@ double countGPA(double score){
     }else{
         return 0.0;
     }
-
 }
-
 
 /**
  * @brief 计算平均绩点
  * @param stu 学生
  */
 double countAverageGPA(student *stu){
-
-    double sum, credits = 0;
+    double sum = 0, credits = 0;
     int i = 0;
     for(i = 0;i < stu->subjectNum;i++){
         sum = sum + countGPA(stu->scores[i].score) * getCreditByIdx(stu->scores[i].id);
@@ -204,6 +201,126 @@ void printStudent(student *stu) {
     }
     printf("\n");
     
-    printf("GPA: %.2lf\n",countAverageGPA(stu));
-    printf("WAM: %.2lf\n",getWAM(stu));
+    printf("GPA: %.2lf\n", countAverageGPA(stu));
+    printf("WAM: %.2lf\n", getWAM(stu));
+}
+
+int compare(const void *a, const void *b) {
+    student *stuA = *(student **)a;
+    student *stuB = *(student **)b;
+
+    if(stuA->grade != stuB->grade) {
+        return (stuA->grade > stuB->grade) ? 1 : -1;
+    }
+
+    double GPA_A = countAverageGPA(stuA);
+    double GPA_B = countAverageGPA(stuB);
+
+    if (GPA_A > GPA_B) {
+        return -1; // GPA_A 在前
+    } 
+    if (GPA_A < GPA_B) {
+        return 1;  // GPA_B 在前
+    } 
+
+    return strcmp(stuA->id, stuB->id);
+
+}
+
+void printStudentByMajor(const char *majorId) {
+    student *students[MAX_STUDENT_NUM] = {0}; 
+    int count = 0;
+    
+    for (int i = 0; i < MAX_STUDENT_NUM; i++) {
+        student *stu = studentById[i];
+        while (stu) {
+            if (strcmp(stu->major, majorId) == 0) {
+                students[count++] = stu;
+            }
+            stu = stu->next;
+        }
+    }
+    
+    if (count > 0) {
+        // qsort(students, count, sizeof(student *), compare);
+        quickSort(students, 0, count - 1, sizeof(student *), compare);
+
+        int rank = 1;
+        int currentGrade = -1;
+        int tmpSame = 1;
+        
+        for(int i = 0; i < count; i++) {
+            student *stu = students[i];
+            
+            // 检查是否是新专业或新年级
+            if(currentGrade != stu->grade) {
+                // 新分组，重置排名
+                rank = 0;
+                currentGrade = stu->grade;
+                printf("--------------------------------------------------\n");
+                printf("年级: %d\n", stu->grade);
+                printf("--------------------------------------------------\n");
+            }
+            
+            // 处理并列排名
+            if(i > 0 && students[i - 1]->grade == stu->grade && (countAverageGPA(students[i - 1]) - countAverageGPA(stu)) < 1e-7) {
+                // GPA相同，排名不变
+                tmpSame += 1;
+            } else {
+                rank += tmpSame;
+                tmpSame = 1;
+            }
+            
+            printf("| %-4d | %-8s | %-6s | %-8s | %-4d | %.2f |\n", 
+                rank, stu->id, stu->name, getMajorByIdx(stu->major), 
+                stu->grade, countAverageGPA(stu));
+        }
+        printf("==================================================\n");
+    } else {
+        printf("No students found for major: %s\n", majorId);
+    }
+}
+
+
+
+
+// TODO: 
+// qsort 个人实现版？
+// quickSort(students, 0, count - 1, sizeof(student *), compare);
+void quickSort(void *base, int left, int right, size_t size, int (*cmp)(const void *, const void *)) {
+    if (left >= right) {
+        return;
+    }
+
+    // 选择基准元素
+    char *pivot = (char *)base + left * size;
+    int i = left, j = right;
+
+    while (i < j) {
+        // 从右向左找到第一个小于基准的元素
+        while (i < j && cmp((char *)base + j * size, pivot) >= 0) {
+            j--;
+        }
+        // 从左向右找到第一个大于基准的元素
+        while (i < j && cmp((char *)base + i * size, pivot) <= 0) {
+            i++;
+        }
+        // 交换 i 和 j 指向的元素
+        if (i < j) {
+            char temp[size];
+            memcpy(temp, (char *)base + i * size, size);
+            memcpy((char *)base + i * size, (char *)base + j * size, size);
+            memcpy((char *)base + j * size, temp, size);
+        }
+    }
+
+    // 将基准元素放到正确的位置
+    char temp[size];
+    memcpy(temp, pivot, size);
+    memcpy(pivot, (char *)base + i * size, size);
+    memcpy((char *)base + i * size, temp, size);
+
+    // 递归排序左右两部分
+    quickSort(base, left, i - 1, size, cmp);
+    quickSort(base, i + 1, right, size, cmp);
 }
