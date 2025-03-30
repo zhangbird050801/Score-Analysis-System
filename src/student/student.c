@@ -94,11 +94,15 @@ void addStudent(student *stu) {
     unsigned int idxById = hash(stu->id);
     unsigned int idxByName = hash(stu->name);
 
-    stu->next = studentById[idxById];
-    stu->next = studentByName[idxByName];
+    student *newNodeById = malloc(sizeof(student));
+    *newNodeById = *stu; 
+    newNodeById->next = studentById[idxById];
+    studentById[idxById] = newNodeById;
 
-    studentById[idxById] = stu;
-    studentByName[idxByName] = stu;
+    student *newNodeByName = malloc(sizeof(student));
+    *newNodeByName = *stu; 
+    newNodeByName->next = studentByName[idxByName];
+    studentByName[idxByName] = newNodeByName;
 }
 
 /**
@@ -117,6 +121,10 @@ student *searchStudentById(char *id) {
     return NULL;
 }
 
+/**
+ * @brief 通过姓名查找学生
+ * @param name 姓名
+ */
 void searchStudentByName(char *name){
     unsigned int idx = hash(name);
     student *stu = studentByName[idx];
@@ -133,7 +141,7 @@ void searchStudentByName(char *name){
     }
 
     if(key == 0){
-        printf("未找到名字为%s的学生",name);
+        printf("未找到名字为 %s 的学生", name);
     }
 }
 
@@ -198,5 +206,4 @@ void printStudent(student *stu) {
     
     printf("GPA: %.2lf\n",countAverageGPA(stu));
     printf("WAM: %.2lf\n",getWAM(stu));
-
 }
