@@ -205,6 +205,11 @@ void printStudent(student *stu) {
     printf("WAM: %.2lf\n", getWAM(stu));
 }
 
+/**
+ * @brief 比较函数
+ * @param a 
+ * @param b
+ */
 int compare(const void *a, const void *b) {
     student *stuA = *(student **)a;
     student *stuB = *(student **)b;
@@ -227,6 +232,10 @@ int compare(const void *a, const void *b) {
 
 }
 
+/**
+ * @brief 打印专业的学生信息
+ * @param majorId 专业ID
+ */
 void printStudentByMajor(const char *majorId) {
     student *students[MAX_STUDENT_NUM] = {0}; 
     int count = 0;
@@ -280,9 +289,6 @@ void printStudentByMajor(const char *majorId) {
         printf("No students found for major: %s\n", majorId);
     }
 }
-
-
-
 
 // TODO: 
 // qsort 个人实现版？

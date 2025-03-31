@@ -19,9 +19,9 @@ int main()
 
     loadingSuccess();
     
-    // mainInterface(); // 主交互界面
+    mainInterface(); // 主交互界面
 
-    printStudentByMajor("M00001");
+    // printStudentByMajor("M00001");
 
     // outUser();
     // outStudent();
