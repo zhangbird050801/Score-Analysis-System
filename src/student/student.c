@@ -232,62 +232,90 @@ int compare(const void *a, const void *b) {
 
 }
 
+// TODO: 获取指定专业的所有学生
+student **getStudentByMajor(const char *majorId, int *count) {
+    student **students = malloc(MAX_STUDENT_NUM * sizeof(student *)); // 动态分配数组
+    int tmpCount = 0;
+
+    for (int i = 0; i < MAX_STUDENT_NUM; i++) {
+        student *stu = studentById[i];
+        while (stu) {
+            if (strcmp(stu->major, majorId) == 0) {
+                students[tmpCount++] = stu;
+            }
+            stu = stu->next;
+        }
+    }
+
+    *count = tmpCount; // 返回学生数量
+    return students;   // 返回学生数组
+}
+
+// TODO: 获取指定班级的所有学生
+
 /**
  * @brief 打印专业的学生信息
  * @param majorId 专业ID
  */
 void printStudentByMajor(const char *majorId) {
-    student *students[MAX_STUDENT_NUM] = {0}; 
+    // student *students[MAX_STUDENT_NUM] = {0}; 
     int count = 0;
-    
-    for (int i = 0; i < MAX_STUDENT_NUM; i++) {
-        student *stu = studentById[i];
-        while (stu) {
-            if (strcmp(stu->major, majorId) == 0) {
-                students[count++] = stu;
-            }
-            stu = stu->next;
-        }
-    }
-    
-    if (count > 0) {
-        // qsort(students, count, sizeof(student *), compare);
-        quickSort(students, 0, count - 1, sizeof(student *), compare);
 
-        int rank = 1;
-        int currentGrade = -1;
-        int tmpSame = 1;
+    char PATH[256]; 
+    snprintf(PATH, sizeof(PATH), "src/Data/Sort/%s.txt", majorId); 
+    FILE *ptr = fopen(PATH, "w");
+
+    fprintf(ptr, "排名\t学号\t\t姓名\t\t专业\t\t年级\tGPA\n");
+
+    student **students = getStudentByMajor(majorId, &count);
+    
+    // for (int i = 0; i < MAX_STUDENT_NUM; i++) {
+    //     student *stu = studentById[i];
+    //     while (stu) {
+    //         if (strcmp(stu->major, majorId) == 0) {
+    //             students[count++] = stu;
+    //         }
+    //         stu = stu->next;
+    //     }
+    // }
+    
+    // qsort(students, count, sizeof(student *), compare);
+    quickSort(students, 0, count - 1, sizeof(student *), compare);
+
+    int rank = 1;
+    int currentGrade = -1;
+    int tmpSame = 1;
+    
+    for(int i = 0; i < count; i++) {
+        student *stu = students[i];
         
-        for(int i = 0; i < count; i++) {
-            student *stu = students[i];
-            
-            // 检查是否是新专业或新年级
-            if(currentGrade != stu->grade) {
-                // 新分组，重置排名
-                rank = 0;
-                currentGrade = stu->grade;
-                printf("--------------------------------------------------\n");
-                printf("年级: %d\n", stu->grade);
-                printf("--------------------------------------------------\n");
-            }
-            
-            // 处理并列排名
-            if(i > 0 && students[i - 1]->grade == stu->grade && (countAverageGPA(students[i - 1]) - countAverageGPA(stu)) < 1e-7) {
-                // GPA相同，排名不变
-                tmpSame += 1;
-            } else {
-                rank += tmpSame;
-                tmpSame = 1;
-            }
-            
-            printf("| %-4d | %-8s | %-6s | %-8s | %-4d | %.2f |\n", 
-                rank, stu->id, stu->name, getMajorByIdx(stu->major), 
-                stu->grade, countAverageGPA(stu));
+        if(currentGrade != stu->grade) {
+            rank = 0;
+            currentGrade = stu->grade;
+            printf("--------------------------------------------------\n");
+            printf("年级: %d\n", stu->grade);
+            printf("--------------------------------------------------\n");
         }
-        printf("==================================================\n");
-    } else {
-        printf("No students found for major: %s\n", majorId);
+        
+        // 处理并列排名
+        if(i > 0 && students[i - 1]->grade == stu->grade && (countAverageGPA(students[i - 1]) - countAverageGPA(stu)) < 1e-7) {
+            // GPA相同，排名不变
+            tmpSame += 1;
+        } else {
+            rank += tmpSame;
+            tmpSame = 1;
+        }
+        
+        printf("| %-4d | %-8s | %-6s | %-8s | %-4d | %.2f |\n", 
+            rank, stu->id, stu->name, getMajorByIdx(stu->major), 
+            stu->grade, countAverageGPA(stu));
+        fprintf(ptr, "%-4d\t%-8s\t%-8s\t%-8s\t%-4d\t%.2f\n", 
+            rank, stu->id, stu->name, getMajorByIdx(stu->major), 
+            stu->grade, countAverageGPA(stu));
     }
+    printf("==================================================\n");
+    fclose(ptr);
+    free(students);
 }
 
 // TODO: 
@@ -330,3 +358,21 @@ void quickSort(void *base, int left, int right, size_t size, int (*cmp)(const vo
     quickSort(base, left, i - 1, size, cmp);
     quickSort(base, i + 1, right, size, cmp);
 }
+
+// void outSortByMajor(const char *majorId, student** students, int count) {
+//     char PATH[256]; 
+//     snprintf(PATH, sizeof(PATH), "src/Data/Sort%s.txt", majorId); 
+    
+//     FILE *ptr = fopen(PATH, "w");
+//     if (ptr == NULL) {
+//         printf("无法打开文件 %s\n", PATH);
+//         return;
+//     }
+
+//     for(int i = 0; i < count; i ++) {
+//         student *stu = students[i];
+//         fprintf(ptr, "%s %s %s %d %d %d ", stu->id, stu->name,
+//                 stu->major, stu->grade, stu->classId, stu->subjectNum);
+//         fprintf(ptr, "\n");
+//     }
+// }
