@@ -232,7 +232,6 @@ int compare(const void *a, const void *b) {
 
 }
 
-// TODO: 获取指定专业的所有学生
 student **getStudentByMajor(const char *majorId, int *count) {
     student **students = malloc(MAX_STUDENT_NUM * sizeof(student *)); // 动态分配数组
     int tmpCount = 0;
@@ -252,6 +251,7 @@ student **getStudentByMajor(const char *majorId, int *count) {
 }
 
 // TODO: 获取指定班级的所有学生
+
 
 /**
  * @brief 打印专业的学生信息

@@ -8,7 +8,13 @@ void analyzeInterface() {
 
 // TODO: 专业年级成绩分析
 void analyzeGrade() {
+    int count = 0;
+    char majorId[MAX_ID_LENGTH];
+    scanf("%s", majorId);
+    student **students = getStudentByMajor(majorId, &count);
 
+    int subNum = students[0]->subjectNum;
+    
 }
 
 // TODO: 班级成绩分析
