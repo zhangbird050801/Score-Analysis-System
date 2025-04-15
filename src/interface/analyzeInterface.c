@@ -80,10 +80,9 @@ void analyzeClass() {
     
         // 获取指定专业和班级的学生数据
         student **students = getStudentByMajor(majorId, &count);
-        for(int i = 0; i < count; i++){
+        for(int b = 0; b < count; b++){
 
-            student *stu = students[i];
-
+            student *stu = students[b];
             if(stu->classId == classId){
                 classcount++;
             }
@@ -92,10 +91,6 @@ void analyzeClass() {
     
         // 按科目统计成绩
         for (int i = 0; i < subNum; i++) {
-
-            
-
-            //判断该学生是否属于当前查询年级和班级
               
             int total = 0;
             int s_max = 0;
@@ -103,24 +98,28 @@ void analyzeClass() {
             int failCount = 0;
             int range[5] = {0}; // 60~69, 70~79, 80~89, 90~
     
-            for (int j = 0; j < classcount; j++) {
-                int score = students[j]->scores[i].score;
-                total += score;
-                s_max = max(s_max, score);
-                s_min = min(s_min, score);
+            for (int j = 0; j < count; j++) {
+                student *stu = students[j];
+
+                if(stu->classId == classId){
+                    int score = students[j]->scores[i].score;
+                    total += score;
+                    s_max = max(s_max, score);
+                    s_min = min(s_min, score);
     
-                if (score < 60) {
+                    if (score < 60) {
                     failCount++;
-                } else if (score < 70) {
+                    } else if (score < 70) {
                     range[0]++;
-                } else if (score < 80) {
+                    } else if (score < 80) {
                     range[1]++;
-                } else if (score < 90) {
+                    } else if (score < 90) {
                     range[2]++;
-                } else {
+                    } else {
                     range[3]++;
-                }
+                    }
             }
+        }
     
             // 输出统计结果
             printf("专业: %s   班级: %d\n科目%d(%s): 平均分: %.2f  最高分: %d  最低分: %d  不及格人数: %d ",
@@ -128,7 +127,7 @@ void analyzeClass() {
                    (float)total / classcount, s_max, s_min, failCount);
             printf("60~69分人数: %d  70~79分人数: %d  80~89分人数: %d  90分以上人数: %d\n",
                    range[0], range[1], range[2], range[3]);
-        
+            
         }
         printf("\n");
     }
