@@ -41,17 +41,3 @@ bool dequeue(Queue *q) {
 failSubject first(Queue *q) {
     return q->subject[q->front];
 }
-
-// 打印队列内容
-void printQueue(Queue *q) {
-    if (isEmpty(q)) {
-        printf("队列为空\n");
-        return;
-    }
-    printf("队列内容: ");
-    int i = q->front;
-    while (i != q->rear) {
-        i = (i + 1) % MAX_SUBJECT_NUM;
-    }
-    printf("\n");
-}

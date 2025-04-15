@@ -34,7 +34,4 @@ bool dequeue(Queue *q);
 // 获取队首元素
 failSubject first(Queue *q) ;
 
-// 打印队列内容
-void printQueue(Queue *q) ;
-
 #endif
