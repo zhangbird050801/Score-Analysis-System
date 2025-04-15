@@ -54,3 +54,4 @@ double getCreditByIdx(char *id){
     int idx = idToidxOfSub(id);
     return subjects[idx].credit;
 }
+

@@ -191,18 +191,42 @@ double getWAM(student *stu){
  * @param stu 学生
  */
 void printStudent(student *stu) {
-    printInfo();
+     printInfo();
+
+    int failSubjects = 0;//不及格科目
+    double totalCredit = 0;//总学分
+    Queue q;
+    initQueue(&q);
 
     printf("| %s | %s | %s |   %d   | %d | \n", stu->id, stu->name, getMajorByIdx(stu->major), \
         stu->grade, stu->classId
     );
+
     for(int i = 0; i < stu->subjectNum; i ++) {
         printf("%s %.2lf ", getSubjectByIdx(stu->scores[i].id), stu->scores[i].score);
+        
+        if(stu->scores[i].score < 60) {
+            failSubjects ++;
+
+            failSubject fail;
+            strcpy(fail.name, stu->scores[i].id);
+            fail.score = stu->scores[i].score;
+            enqueue(&q, fail);
+        }else{
+            totalCredit += getCreditByIdx(stu->scores[i].id);
+        }
     }
     printf("\n");
     
     printf("GPA: %.2lf\n", countAverageGPA(stu));
     printf("WAM: %.2lf\n", getWAM(stu));
+    printf("Total Credit: %.2lf\n", totalCredit);
+    printf("Fail Subject: %d\n", failSubjects);
+    
+    for(int i = 0; i < failSubjects; i++) {
+        printf("Fail Subject: %s %.2lf\n", first(&q).name, first(&q).score);
+        dequeue(&q);
+    }
 }
 
 /**
@@ -251,7 +275,56 @@ student **getStudentByMajor(const char *majorId, int *count) {
 }
 
 // TODO: 获取指定班级的所有学生
+void printStudentByClass(const char *majorId,int grade,int class){
+    int count = 0;
+    char PATH[256];
+    snprintf(PATH,sizeof(PATH),"src/Data/Sort/%s-%d-%d.txt",majorId,grade,class);
+    FILE *ptr = fopen(PATH,"w");
+    fprintf(ptr,"排名\t学号\t\t姓名\t\t专业\t\t年级\tGPA\n");
+    student **students = getStudentByMajor(majorId, &count);
+    qsort(students, count, sizeof(student *), compare);
 
+    int rank = 0;
+    int curGrade = grade;
+    int curClass = class;
+    int sameNum = 1;
+    
+
+    printf("--------------------------------------------------\n");
+    printf("年级: %d   班级：%d\n", curGrade,curClass);
+    printf("--------------------------------------------------\n");
+
+    for(int i = 0; i < count; i++) {
+        student *stu = students[i];
+
+        //判断该学生是否属于当前查询年级和班级
+        if(stu->grade == curGrade && stu->classId == curClass){
+          
+        // 处理并列排名： GPA相同，排名不变
+            if(i > 0  && (countAverageGPA(students[i - 1]) - countAverageGPA(stu)) < 1e-7) {
+                sameNum = sameNum + 1;
+            } else {
+                rank = rank + sameNum;
+                sameNum = 1;
+            }
+        
+            printf("| %-4d | %-8s | %-6s | %-8s | %-4d | %.2f |\n", 
+            rank, stu->id, stu->name, getMajorByIdx(stu->major), 
+            stu->grade, countAverageGPA(stu));
+
+            fprintf(ptr, "%-4d\t%-8s\t%-8s\t%-8s\t%-4d\t%.2f\n", 
+            rank, stu->id, stu->name, getMajorByIdx(stu->major), 
+            stu->grade, countAverageGPA(stu));
+        }
+
+    }
+
+    
+
+    printf("==================================================\n");
+    fclose(ptr);
+    free(students);
+}
 
 /**
  * @brief 打印专业的学生信息

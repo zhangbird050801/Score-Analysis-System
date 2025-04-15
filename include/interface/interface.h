@@ -10,6 +10,7 @@
 #include "student/student.h"
 #include "major/major.h"
 #include "subject/subject.h"
+#include "queue/queue.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

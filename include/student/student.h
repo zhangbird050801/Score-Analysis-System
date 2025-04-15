@@ -34,6 +34,7 @@ double countAverageGPA(student *stu);
 double getWAM(student *stu);
 
 int compare(const void *a, const void *b);
+void printStudentByClass(const char *majorId,int grade,int class);
 void printStudentByMajor(const char *majorId);
 student **getStudentByMajor(const char *majorId, int *count);
 void quickSort(void *base, int left, int right, size_t size, int (*cmp)(const void *, const void *));
