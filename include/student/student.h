@@ -19,7 +19,6 @@ typedef struct student {
     int classId;
     int subjectNum;
     score scores[MAX_SUBJECT_NUM];
-    
     struct student *next;
 } student;
 

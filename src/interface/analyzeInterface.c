@@ -6,6 +6,20 @@ void analyzeInterface() {
     makeInterface(ANALYZE, handler);
 }
 
+/**
+ * @brief 返回较大值
+ */
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+/**
+ * @brief 返回较小值
+ */
+int min(int a, int b) {
+    return a < b ? a : b;
+}
+
 // TODO: 专业年级成绩分析
 void analyzeGrade() {
     int count = 0;  // 学生总数
@@ -18,20 +32,17 @@ void analyzeGrade() {
     
     for(int i = 0; i < subNum; i ++) {
         int total = 0;
-        int max = 0;
-        int min = 100;
+        int s_max = 0;
+        int s_min = 100;
         int failCount = 0;
         int range[5] = {0}; // 60~69, 70~79, 80~89, 90~
         
         for(int j = 0; j < count; j ++) {
             int score = students[j]->scores[i].score;
             total += score;
-            if(score > max) {
-                max = score;
-            }
-            if(score < min) {
-                min = score;
-            }
+            s_max = max(s_max, score);
+            s_min = min(s_min, score);
+            
             if(score < 60) {
                 failCount ++;
             } else if(score < 70) {

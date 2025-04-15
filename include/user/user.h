@@ -3,8 +3,7 @@
 
 #include "config.h"
 
-typedef struct
-{
+typedef struct{
     char id[MAX_ID_LENGTH];
     char name[MAX_NAME_LENGTH];
     char password[MAX_PASSWORD_LENGTH];

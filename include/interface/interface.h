@@ -48,6 +48,8 @@ void sortByClass();
 void analyzeInterface();
 void analyzeGrade();
 void analyzeClass();
+int max(int a, int b);
+int min(int a, int b);
 
 /* searchInterface */
 void searchInterface();
