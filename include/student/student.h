@@ -23,6 +23,7 @@ typedef struct student {
     struct student *next;
 } student;
 
+unsigned int hash(char *str);
 void loadStudent();
 void outStudent();
 void addStudent(student *stu);

@@ -313,6 +313,7 @@ void printStudentByMajor(const char *majorId) {
             rank, stu->id, stu->name, getMajorByIdx(stu->major), 
             stu->grade, countAverageGPA(stu));
     }
+    
     printf("==================================================\n");
     fclose(ptr);
     free(students);
