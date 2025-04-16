@@ -4,9 +4,9 @@
 #include "config.h"
 
 typedef struct {
-    char id[MAX_ID_LENGTH];
-    char name[MAX_NAME_LENGTH];
-    double credit;
+    char id[MAX_ID_LENGTH];          // 课程编号
+    char name[MAX_NAME_LENGTH];      // 课程名称
+    double credit;                   // 课程学分
 }Subject;
 
 void loadSubjects();

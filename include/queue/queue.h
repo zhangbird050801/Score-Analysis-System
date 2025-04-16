@@ -5,33 +5,32 @@
 #include "config.h"
 
 typedef struct {
-    char name[MAX_NAME_LENGTH];
-    double score;
+    char name[MAX_NAME_LENGTH];         // 科目名称
+    double score;                       // 科目成绩
 } failSubject;
 
 typedef struct {
-    failSubject subject[MAX_SUBJECT_NUM];
-    int front;
-    int rear;
+    failSubject subject[MAX_SUBJECT_NUM]; // 队列元素(不及格科目)
+    int front;                            // 队头指针
+    int rear;                             // 队尾指针
 } Queue;
 
 // 初始化队列
-void initQueue(Queue *q) ;
+void initQueue(Queue *q);
 
 // 检查队列是否为空
-bool isEmpty(Queue *q) ;
+bool isEmpty(Queue *q);
 
 // 检查队列是否已满
-bool isFull(Queue *q) ;
+bool isFull(Queue *q);
 
 // 入队操作
 bool enqueue(Queue *q, failSubject subject);
 
 // 出队操作
-
 bool dequeue(Queue *q);
 
 // 获取队首元素
-failSubject first(Queue *q) ;
+failSubject first(Queue *q);
 
 #endif

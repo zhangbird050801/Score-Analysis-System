@@ -4,8 +4,8 @@
 #include "config.h"
 
 typedef struct  {
-    char id[MAX_ID_LENGTH];
-    char name[MAX_NAME_LENGTH];
+    char id[MAX_ID_LENGTH];       // 专业编号
+    char name[MAX_NAME_LENGTH];   // 专业名称
 } Major;
 
 void loadMajor();
