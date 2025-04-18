@@ -20,7 +20,7 @@ double min(double a, double b) {
     return a < b ? a : b;
 }
 
-// TODO: 专业年级成绩分析
+// TODO: 分年级
 void analyzeGrade() {
     int count = 0;  // 学生总数
     char majorId[MAX_ID_LENGTH];
@@ -63,7 +63,6 @@ void analyzeGrade() {
     printf("\n");
 }
 
-// TODO: 班级成绩分析
 void analyzeClass() {
     
         int count = 0;  // 学生总数
