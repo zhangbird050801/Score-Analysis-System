@@ -8,7 +8,7 @@
 
 typedef struct {
     char id[MAX_ID_LENGTH];
-    double score;
+    double score;  
 } score;
 
 typedef struct student {

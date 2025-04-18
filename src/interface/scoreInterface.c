@@ -55,5 +55,57 @@ void inputScore() {
 
 // TODO: 修改成绩
 void modifyScore() {
+    printf("请输入学号：");
+    char id[MAX_ID_LENGTH];
+    scanf("%s", id);
+    student *stu = searchStudentById(id);
     
-}
+    if(stu == NULL) {
+        errorFindingStudent();
+        failureMessage();
+        return;
+    }
+    
+    for(int i = 0; i < stu->subjectNum; i ++){
+        printf("第%d门课程为%s\n",i+1,getSubjectByIdx(stu->scores[i].id));
+        printf("课程号为%s\n",stu->scores[i].id);
+        printf("课程成绩为%.2lf\n",stu->scores[i].score);
+        printf("\n");
+    }
+    bool tem = true;
+    while(tem){
+        printf("请输入要修改的课程序号: ");
+        char subjectId[MAX_ID_LENGTH];
+        scanf("%s", subjectId);
+        int i = 0;
+       for( i = 0; i < stu->subjectNum; i ++){
+            if(strcmp(stu->scores[i].id,subjectId) == 0){
+                printf("请输入新的成绩: ");
+                scanf("%lf", &stu->scores[i].score);
+                printf ("学号%s的%s成绩修改成功!\n",id,getSubjectByIdx(subjectId));
+                break;
+            }
+            
+       }
+       if(i == stu->subjectNum){
+           printf("没有找到该课程!\n");
+       }
+        printf("是否继续修改: y/n\n");
+        char c;
+        scanf(" %c", &c);
+        if(c == 'n'){
+            tem = false;
+        }
+        
+     }
+
+        
+
+    }
+
+
+
+
+
+
+

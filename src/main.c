@@ -21,8 +21,8 @@ int main()
     
     mainInterface(); // 主交互界面
     
-    // outUser();
-    // outStudent();
+    outUser();
+    outStudent();
     
     exitMessage(); // 退出信息
 
