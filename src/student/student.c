@@ -119,6 +119,24 @@ student *searchStudentById(char *id) {
 }
 
 /**
+ * @brief 打印学生的各门课程成绩
+ * @param stu 学生
+ */
+void printAllGrades(student *stu) {
+    printf("\n+======================== 学生成绩 ======================+\n");
+    printf("| ");print_centered("课程ID", 10);    
+    printf(" | ");print_centered("课程名称", 30);  
+    printf(" | ");print_centered("成绩", 8); printf(" |\n");
+    printf("+------------+--------------------------------+----------+\n");
+    for (int i = 0; i < stu->subjectNum; i++) {
+        printf("| %-10s | ", stu->scores[i].id);  // 课程ID左对齐
+        print_centered(getSubjectByIdx(stu->scores[i].id), 30);
+        printf(" | %-8.2lf |\n", stu->scores[i].score); // 成绩右对齐
+    }
+    printf("+========================================================+\n\n");
+}
+
+/**
  * @brief 通过姓名查找学生
  * @param name 姓名
  */
@@ -209,7 +227,7 @@ void printStudent(student *stu) {
         }
     }
 
-    printf("| %s | %s | %-14s |   %d   | %4d | %-12.2lf | %-8.2lf | %8d | %-12.2lf | %s%s%s%d%s | \n", stu->id, stu->name, getMajorByIdx(stu->major), \
+    printf("| %s | %s | %-14s |   %d   | %4d | %-12.2lf | %-8.2lf | %8d | %-12.2lf |       %s%s%s%d%s        | \n", stu->id, stu->name, getMajorByIdx(stu->major), \
         stu->grade, stu->classId, countAverageGPA(stu), getWAM(stu), stu->subjectNum, totalCredit, FRONT_RED, BOLD, UNDERLINE, failSubjects, RESET
     );
 
@@ -219,6 +237,8 @@ void printStudent(student *stu) {
         printf("不及格科目: %s %.2lf\n", first(&q).name, first(&q).score);
         dequeue(&q);
     }
+
+    printAllGrades(stu);
 }
 
 /**

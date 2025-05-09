@@ -96,4 +96,4 @@ void addUserSuccess(){printf("\n%s%s%s\n\n", FRONT_PURPLR, ADD_USER_SUCCESS, RES
 
 void addUserError(){printf("\n%s%s%s\n\n", FRONT_RED, ADD_USER_ERROR, RESET);}
 
-void printInfo(){printf("\n%s%s%s", BOLD, INFO, RESET);}
+void printInfo(){printf("\n%s%s%s%s", BOLD, FRONT_BLUE, INFO, RESET);}

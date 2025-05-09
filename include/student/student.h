@@ -33,6 +33,8 @@ double countGPA(double score);
 double countAverageGPA(student *stu);
 double getWAM(student *stu);
 
+void printAllGrades(student *stu);
+
 int compare(const void *a, const void *b);
 void printStudentByClass(const char *majorId,int grade,int class);
 void printStudentByMajor(const char *majorId);
