@@ -4,6 +4,7 @@
 
 int main()
 {
+    setlocale(LC_ALL, "");
     welcomeMessage(); // 初始界面信息
 
     // 界面加载
