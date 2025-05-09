@@ -286,10 +286,6 @@ student **getStudentByClass(const char *majorId, int grade, int class, int *coun
 
 void printStudentByClass(const char *majorId, int grade, int class){
     int count = 0;
-    char PATH[256];
-    snprintf(PATH,sizeof(PATH),"src/Data/Sort/%s-%d-%d.txt",majorId,grade,class);
-    FILE *ptr = fopen(PATH,"w");
-    fprintf(ptr,"排名\t学号\t\t姓名\t\t专业\t\t年级\tGPA\n");
 
     student **students = getStudentByClass(majorId, grade, class, &count);
     qsort(students, count, sizeof(student *), compare);
@@ -302,6 +298,11 @@ void printStudentByClass(const char *majorId, int grade, int class){
     printf("\t+------+------------+------+------------+------+------+\n");
     printf("\t| 排名 |    学号    | 姓名 |    专业    | 年级 | GPA  |\n");
     printf("\t+------+------------+------+------------+------+------+\n");
+
+    char PATH[256];
+    snprintf(PATH,sizeof(PATH),"src/Data/Sort/%s-%d-%d.txt",majorId,grade,class);
+    FILE *ptr = fopen(PATH,"w");
+    fprintf(ptr,"排名\t学号\t\t姓名\t\t专业\t\t年级\tGPA\n");
 
     for(int i = 0; i < count; i++) {
         student *stu = students[i];
@@ -333,39 +334,55 @@ void printStudentByClass(const char *majorId, int grade, int class){
  * @param majorId 专业ID
  */
 void printStudentByMajor(const char *majorId) {
-    // student *students[MAX_STUDENT_NUM] = {0}; 
     int count = 0;
 
     char PATH[256]; 
-    snprintf(PATH, sizeof(PATH), "src/Data/Sort/%s.txt", majorId); 
-    FILE *ptr = fopen(PATH, "w");
-
-    fprintf(ptr, "排名\t学号\t\t姓名\t\t专业\t\t年级\tGPA\n");
+    FILE *ptr = NULL; // 初始化文件指针
 
     student **students = getStudentByMajor(majorId, &count);
 
-    // qsort(students, count, sizeof(student *), compare);
+    // 使用 quickSort 对学生数组排序
     quickSort(students, 0, count - 1, sizeof(student *), compare);
 
     int rank = 1;
     int currentGrade = -1;
     int tmpSame = 1;
-    
-    for(int i = 0; i < count; i++) {
+
+    for (int i = 0; i < count; i++) {
         student *stu = students[i];
         
-        if(currentGrade != stu->grade) {
-            rank = 0;
-            tmpSame = 1;
-            currentGrade = stu->grade;
+        // 如果年级发生变化，关闭之前的文件并打开新的文件
+        if (currentGrade != stu->grade) {
+            if (ptr != NULL) {
+                fclose(ptr); // 关闭之前的文件
+            }
+
+            currentGrade = stu->grade; // 更新当前年级
+
+            snprintf(PATH, sizeof(PATH), "src/Data/Sort/%s-%d.txt", majorId, currentGrade); 
+            ptr = fopen(PATH, "w"); // 打开新的文件
+
+            if (ptr == NULL) {
+                perror("文件打开失败");
+                free(students);
+                return;
+            }
+
+            fprintf(ptr, "排名\t学号\t\t姓名\t\t专业\t\t年级\tGPA\n");
+
             printf("\t+=====================================================+\n");
             printf("\t| 年级: %d                                            |\n", stu->grade);                     
             printf("\t+------+------------+------+------------+------+------+\n");
             printf("\t| 排名 |    学号    | 姓名 |    专业    | 年级 | GPA  |\n");
             printf("\t+------+------------+------+------------+------+------+\n");
+
+            rank = 0; // 重置排名
+            tmpSame = 1; // 重置并列计数
         }
         
-        if(i > 0 && students[i - 1]->grade == stu->grade && (countAverageGPA(students[i - 1]) - countAverageGPA(stu)) < 1e-7) {
+        // 处理并列排名： GPA相同，排名不变
+        if (i > 0 && students[i - 1]->grade == stu->grade && 
+            (countAverageGPA(students[i - 1]) - countAverageGPA(stu)) < 1e-7) {
             tmpSame += 1;
         } else {
             rank += tmpSame;
@@ -381,7 +398,10 @@ void printStudentByMajor(const char *majorId) {
     }
 
     printf("\t+=====================================================+\n\n");
-    fclose(ptr);
+
+    if (ptr != NULL) {
+        fclose(ptr); // 关闭最后一个文件
+    }
     free(students);
 }
 
