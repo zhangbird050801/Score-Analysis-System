@@ -5,6 +5,7 @@
 #include "tools/color.h"
 #include "tools/hint.h"
 #include "tools/info.h"
+#include "tools/printHelp.h"
 #include "config.h"
 #include "user/user.h"
 #include "student/student.h"
@@ -15,6 +16,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <wchar.h>
+#include <locale.h>
 
 extern int nowUser;
 
