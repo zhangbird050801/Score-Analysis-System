@@ -53,7 +53,9 @@ void inputScore() {
     addStudentSuccess();
 }
 
-// TODO: 修改成绩
+/**
+ * @brief 修改学生成绩
+ */
 void modifyScore() {
     printf("请输入学号：");
     char id[MAX_ID_LENGTH];
@@ -78,30 +80,25 @@ void modifyScore() {
         char subjectId[MAX_ID_LENGTH];
         scanf("%s", subjectId);
         int i = 0;
-       for( i = 0; i < stu->subjectNum; i ++){
+        for( i = 0; i < stu->subjectNum; i ++){
             if(strcmp(stu->scores[i].id,subjectId) == 0){
                 printf("请输入新的成绩: ");
                 scanf("%lf", &stu->scores[i].score);
                 printf ("学号%s的%s成绩修改成功!\n",id,getSubjectByIdx(subjectId));
                 break;
             }
-            
-       }
-       if(i == stu->subjectNum){
-           printf("没有找到该课程!\n");
-       }
+        }
+        if(i == stu->subjectNum){
+            printf("没有找到该课程!\n");
+        }
         printf("是否继续修改: y/n\n");
         char c;
         scanf(" %c", &c);
         if(c == 'n'){
             tem = false;
         }
-        
-     }
-
-        
-
     }
+}
 
 
 
