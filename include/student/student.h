@@ -22,6 +22,15 @@ typedef struct student {
     struct student *next;            // 链表指针
 } student;
 
+typedef struct {
+    double total;
+    double avg;
+    double max;
+    double min;
+    int failCount;
+    int range[4]; // 60~69, 70~79, 80~89, 90+
+} ScoreAnalysis;
+
 unsigned int hash(char *str);
 void loadStudent();
 void outStudent();

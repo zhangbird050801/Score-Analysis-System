@@ -54,6 +54,9 @@ void analyzeGrade();
 void analyzeClass();
 double max(double a, double b);
 double min(double a, double b);
+void printScoreAnalysis(const char *subjectName, ScoreAnalysis *analysis);
+void analyzeScores(double *scores, int count, ScoreAnalysis *result);
+void printAnalysisHeader(const char *majorName, int classId);
 
 /* searchInterface */
 void searchInterface();
