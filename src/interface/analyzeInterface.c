@@ -29,7 +29,15 @@ void analyzeGrade() {
     student **students = getStudentByMajor(majorId, &count);
 
     int subNum = students[0]->subjectNum;
+    // 输出表头
     
+    printf("+-----------------------------\n");
+    printf("| 专业名称：%-20s |\n",getMajorByIdx(majorId));
+    printf("+----------------------------+\n");
+    printf("| %-32s |\n", "科目成绩分析");
+    printf("+----------------------------+\n");
+    printf("| 科目名   | 平均分 | 最高分 | 最低分 | 不及格 | 60~69 | 70~79 | 80~89 | 90+  |\n");
+    printf("+----------+--------+--------+--------+--------+-------+-------+-------+------+\n");
     for(int i = 0; i < subNum; i ++) {
         int total = 0;
         double s_max = 0;
@@ -55,11 +63,15 @@ void analyzeGrade() {
                 range[3] ++;
             }
         }
-        
-        printf("科目%d(%s): 平均分: %.2f, 最高分: %.2lf, 最低分: %.2lf, 不及格人数: %d, ", i + 1, getSubjectByIdx(students[0]->scores[i].id), (float)total / count, s_max, s_min, failCount);
-        printf("60~69分人数: %d, 70~79分人数: %d, 80~89分人数: %d, 90分以上人数: %d\n", range[0], range[1], range[2], range[3]); 
-    }
+         float avg = (float)total / count;
+         // 使用颜色区分不及格人数
+         printf("| ");
+        print_centered(getSubjectByIdx(students[0]->scores[i].id), 8);  // 科目名宽度为6（原%-6s）
+        printf(" | %6.2f | %6.2f | %6.2f | \e[31m%6d\e[0m | %5d | %5d | %5d | %4d |\n",
+           avg, s_max, s_min, failCount, range[0], range[1], range[2], range[3]);
+}
 
+    printf("+----------+--------+--------+--------+--------+-------+-------+-------+------+\n");
     printf("\n");
 }
 
@@ -89,7 +101,10 @@ void analyzeClass() {
             }
         }
         int subNum = students[0]->subjectNum;
-    
+        // 输出表头
+    printf("+------------+--------+--------+--------+--------+-------+-------+-------+------+\n");
+    printf("|   科目名   | 平均分 | 最高分 | 最低分 | 不及格 | 60~69 | 70~79 | 80~89 | 90+  |\n");
+    printf("+------------+--------+--------+--------+--------+-------+-------+-------+------+\n");
         // 按科目统计成绩
         for (int i = 0; i < subNum; i++) {
             int total = 0;
@@ -120,15 +135,17 @@ void analyzeClass() {
                     }
             }
         }
-    
-            // 输出统计结果
-            printf("科目%d(%s): 平均分: %.2f  最高分: %.2lf  最低分: %.2lf  不及格人数: %d ",
-                i + 1, getSubjectByIdx(students[0]->scores[i].id),
-                (float)total / classcount, s_max, s_min, failCount);
-            printf("60~69分人数: %d  70~79分人数: %d  80~89分人数: %d  90分以上人数: %d\n",
-                range[0], range[1], range[2], range[3]);
-            
+        
+        printf("| ");
+        print_centered(getSubjectByIdx(students[0]->scores[i].id), 10);  // 科目名称居中
+        printf(" | %6.2f | %6.2f | %6.2f | \e[31m%6d\e[0m | %5d | %5d | %5d | %4d |\n",
+            (float)total / classcount,
+            s_max,
+            s_min,
+            failCount,
+            range[0], range[1], range[2], range[3]);
         }
+        printf("+------------+--------+--------+--------+--------+-------+-------+-------+------+\n");
         printf("\n");
     }
 
