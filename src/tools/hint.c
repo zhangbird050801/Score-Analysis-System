@@ -34,8 +34,8 @@ static const char* GOODBYE = "\
 
 static const char* FAILURE = "\t\t*** 操作失败,请重新再试! ***";
 static const char* EXIT = "\t\t\t\t\t*** 退出成功! ***";
-static const char* LOGINFAILURE = "\t\t*** 登陆失败，请重新再试！***";
-static const char* LOGINSUCCESS = "\n\t\t*** 登陆成功！***";
+static const char* LOGINFAILURE = "\t\t*** 登录失败，请重新再试！***";
+static const char* LOGINSUCCESS = "\n\t\t*** 登录成功！***";
 static const char* DESIGNERS = "Designer: Zhang Xinyi, Yang Wenrong.";
 static const char* NEXTTIME = "\t\t\t\t       *** 欢迎下次再来！***";
 static const char* LOADING = "\n\t\t***** 加载中 *****";
@@ -50,7 +50,7 @@ static const char* MODIFY_PASSWORD_SUCCESS = "\t\t*****修改密码成功！****
 static const char* SYSTEM_LOCAL_DATE_TIME = "当前系统时间为: ";
 static const char* ADD_USER_SUCCESS = "\t\t***** 添加用户成功！*****";
 static const char* ADD_USER_ERROR = "\t\t** 该用户名已存在, 添加失败！**";
-
+denglu
 static const char* INFO = "\
 +============+======+============+========+======+==============+==========+==========+==============+================+\n\
 |    学号    | 姓名 |     专业   |  年级  | 班级 | 平均学分绩点 | 加权分数 | 学科数目 | 已获得总学分 | 不及格科目数量 |\n\

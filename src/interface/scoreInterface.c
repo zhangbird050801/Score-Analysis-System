@@ -69,6 +69,7 @@ void modifyScore() {
     }
     
     printAllGrades(stu);
+    
     bool tem = true;
     while(tem){
         printf("请输入要修改的课程序号: ");
