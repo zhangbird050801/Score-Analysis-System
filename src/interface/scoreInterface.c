@@ -68,12 +68,7 @@ void modifyScore() {
         return;
     }
     
-    for(int i = 0; i < stu->subjectNum; i ++){
-        printf("第%d门课程为%s\n",i+1,getSubjectByIdx(stu->scores[i].id));
-        printf("课程号为%s\n",stu->scores[i].id);
-        printf("课程成绩为%.2lf\n",stu->scores[i].score);
-        printf("\n");
-    }
+    printAllGrades(stu);
     bool tem = true;
     while(tem){
         printf("请输入要修改的课程序号: ");
@@ -91,12 +86,14 @@ void modifyScore() {
         if(i == stu->subjectNum){
             printf("没有找到该课程!\n");
         }
-        printf("是否继续修改: y/n\n");
+        printf("是否继续修改: yes(输入y) or %sno(输入n)%s: ",FRONT_RED,RESET);
         char c;
         scanf(" %c", &c);
         if(c == 'n'){
             tem = false;
         }
+
+        printf("\n");
     }
 }
 
