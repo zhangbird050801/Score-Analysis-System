@@ -43,18 +43,23 @@ void generateId(char* s, char type) {
     fclose(ptr);
 }
 
+/**
+ * @brief 获取当前时间
+ * @return 时间字符串
+ */
 char* getTime() {
     time_t time_now;
     time(&time_now);
 
     struct tm* TIME = localtime(&time_now);
 
-    char* s = (char*)malloc(20 * sizeof(char));
+    // 增加缓冲区大小到64字节，足够处理任何情况
+    char* s = (char*)malloc(64 * sizeof(char));
     if (s == NULL) {
         return NULL;
     }
 
-    snprintf(s, 20, "%d-%02d-%02d %02d:%02d:%02d", 
+    snprintf(s, 64, "%04d-%02d-%02d %02d:%02d:%02d", 
             TIME->tm_year + 1900, TIME->tm_mon + 1, TIME->tm_mday,
             TIME->tm_hour, TIME->tm_min, TIME->tm_sec);
 
