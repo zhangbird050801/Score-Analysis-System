@@ -21,6 +21,69 @@ double min(double a, double b) {
 }
 
 /**
+ * @brief 打印表头。classId 如果为 -1 不打印班级
+ */
+void printAnalysisHeader(const char *majorName, int classId) {
+    printf("+-------------------------------------------------------------------------------+\n");
+    if (classId == -1) {
+        printf("| 专业名称：%-20s                                                    |\n", majorName);
+    } else {
+        printf("| 专业名称：%-20s  班级：%-4d                                        |\n", majorName, classId);
+    }
+    printf("+-------------------------------------------------------------------------------+\n");
+    printf("| %-44s                                        |\n", "科目成绩分析");
+    printf("+------------+--------+--------+--------+--------+-------+-------+-------+------+\n");
+    printf("|   科目名   | 平均分 | 最高分 | 最低分 | 不及格 | 60~69 | 70~79 | 80~89 | 90+  |\n");
+    printf("+------------+--------+--------+--------+--------+-------+-------+-------+------+\n");
+}
+
+/**
+ * @brief 分析成绩
+ * @param scores 所有成绩
+ * @param count 成绩数量
+ * @param result 结果
+ */
+void analyzeScores(double *scores, int count, ScoreAnalysis *result) {
+    result->total = 0;
+    result->max = 0;
+    result->min = 100;
+    result->failCount = 0;
+    memset(result->range, 0, sizeof(result->range));
+    
+    for (int i = 0; i < count; i++) {
+        double score = scores[i];
+        result->total += score;
+        result->max = max(result->max, score);
+        result->min = min(result->min, score);
+        
+        if (score < 60) {
+            result->failCount++;
+        } else if (score < 70) {
+            result->range[0]++;
+        } else if (score < 80) {
+            result->range[1]++;
+        } else if (score < 90) {
+            result->range[2]++;
+        } else {
+            result->range[3]++;
+        }
+    }
+    result->avg = result->total / count;
+}
+
+/**
+ * @brief 打印成绩分析结果
+ */
+void printScoreAnalysis(const char *subjectName, ScoreAnalysis *analysis) {
+    printf("| ");
+    print_centered(subjectName, 10);
+    printf(" | %6.2f | %6.2f | %6.2f | %s%6d%s | %5d | %5d | %5d | %4d |\n",
+        analysis->avg, analysis->max, analysis->min, FRONT_RED, analysis->failCount, RESET,
+        analysis->range[0], analysis->range[1], analysis->range[2], analysis->range[3]);
+    printf("+------------+--------+--------+--------+--------+-------+-------+-------+------+\n");
+}
+
+/**
  * @brief 根据年级分析成绩
  */
 void analyzeGrade() {
@@ -126,65 +189,3 @@ void analyzeClass() {
     free(students);
 }
 
-/**
- * @brief 打印表头。classId 如果为 -1 不打印班级
- */
-void printAnalysisHeader(const char *majorName, int classId) {
-    printf("+-------------------------------------------------------------------------------+\n");
-    if (classId == -1) {
-        printf("| 专业名称：%-20s                                                    |\n", majorName);
-    } else {
-        printf("| 专业名称：%-20s  班级：%-4d                                        |\n", majorName, classId);
-    }
-    printf("+-------------------------------------------------------------------------------+\n");
-    printf("| %-44s                                        |\n", "科目成绩分析");
-    printf("+------------+--------+--------+--------+--------+-------+-------+-------+------+\n");
-    printf("|   科目名   | 平均分 | 最高分 | 最低分 | 不及格 | 60~69 | 70~79 | 80~89 | 90+  |\n");
-    printf("+------------+--------+--------+--------+--------+-------+-------+-------+------+\n");
-}
-
-/**
- * @brief 分析成绩
- * @param scores 所有成绩
- * @param count 成绩数量
- * @param result 结果
- */
-void analyzeScores(double *scores, int count, ScoreAnalysis *result) {
-    result->total = 0;
-    result->max = 0;
-    result->min = 100;
-    result->failCount = 0;
-    memset(result->range, 0, sizeof(result->range));
-    
-    for (int i = 0; i < count; i++) {
-        double score = scores[i];
-        result->total += score;
-        result->max = max(result->max, score);
-        result->min = min(result->min, score);
-        
-        if (score < 60) {
-            result->failCount++;
-        } else if (score < 70) {
-            result->range[0]++;
-        } else if (score < 80) {
-            result->range[1]++;
-        } else if (score < 90) {
-            result->range[2]++;
-        } else {
-            result->range[3]++;
-        }
-    }
-    result->avg = result->total / count;
-}
-
-/**
- * @brief 打印成绩分析结果
- */
-void printScoreAnalysis(const char *subjectName, ScoreAnalysis *analysis) {
-    printf("| ");
-    print_centered(subjectName, 10);
-    printf(" | %6.2f | %6.2f | %6.2f | %s%6d%s | %5d | %5d | %5d | %4d |\n",
-        analysis->avg, analysis->max, analysis->min, FRONT_RED, analysis->failCount, RESET,
-        analysis->range[0], analysis->range[1], analysis->range[2], analysis->range[3]);
-    printf("+------------+--------+--------+--------+--------+-------+-------+-------+------+\n");
-}
