@@ -20,6 +20,9 @@ double min(double a, double b) {
     return a < b ? a : b;
 }
 
+/**
+ * @brief 根据年级分析成绩
+ */
 void analyzeGrade() {
     int count = 0;
     char majorId[MAX_ID_LENGTH];
@@ -58,6 +61,9 @@ void analyzeGrade() {
     free(students);
 }
 
+/**
+ * @brief 根据班级分析成绩
+ */
 void analyzeClass() {
     int count = 0;
     char majorId[MAX_ID_LENGTH];
@@ -79,7 +85,7 @@ void analyzeClass() {
     int classCount = 0;
     for (int i = 0; i < count; i++) {
         if (students[i]->classId == classId) {
-            classCount++;
+            classCount++; // 统计该班级学生数量
         }
     }
     
@@ -120,7 +126,9 @@ void analyzeClass() {
     free(students);
 }
 
-
+/**
+ * @brief 打印表头。classId 如果为 -1 不打印班级
+ */
 void printAnalysisHeader(const char *majorName, int classId) {
     printf("+-------------------------------------------------------------------------------+\n");
     if (classId == -1) {
@@ -135,6 +143,12 @@ void printAnalysisHeader(const char *majorName, int classId) {
     printf("+------------+--------+--------+--------+--------+-------+-------+-------+------+\n");
 }
 
+/**
+ * @brief 分析成绩
+ * @param scores 所有成绩
+ * @param count 成绩数量
+ * @param result 结果
+ */
 void analyzeScores(double *scores, int count, ScoreAnalysis *result) {
     result->total = 0;
     result->max = 0;
@@ -163,11 +177,14 @@ void analyzeScores(double *scores, int count, ScoreAnalysis *result) {
     result->avg = result->total / count;
 }
 
+/**
+ * @brief 打印成绩分析结果
+ */
 void printScoreAnalysis(const char *subjectName, ScoreAnalysis *analysis) {
     printf("| ");
     print_centered(subjectName, 10);
-    printf(" | %6.2f | %6.2f | %6.2f | \e[31m%6d\e[0m | %5d | %5d | %5d | %4d |\n",
-        analysis->avg, analysis->max, analysis->min, analysis->failCount,
+    printf(" | %6.2f | %6.2f | %6.2f | %s%6d%s | %5d | %5d | %5d | %4d |\n",
+        analysis->avg, analysis->max, analysis->min, FRONT_RED, analysis->failCount, RESET,
         analysis->range[0], analysis->range[1], analysis->range[2], analysis->range[3]);
     printf("+------------+--------+--------+--------+--------+-------+-------+-------+------+\n");
 }

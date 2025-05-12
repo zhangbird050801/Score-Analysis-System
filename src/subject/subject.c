@@ -40,7 +40,6 @@ int idToidxOfSub(char *id){
     return res - 1;
 }
 
-
 /**
  * @brief 将学科编号替换为学科名
  * @param id:学科编号
@@ -50,6 +49,9 @@ char* getSubjectByIdx(char *id){
     return subjects[idx].name;
 }
 
+/**
+ * @brief 获取学科学分
+ */
 double getCreditByIdx(char *id){
     int idx = idToidxOfSub(id);
     return subjects[idx].credit;

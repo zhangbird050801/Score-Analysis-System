@@ -268,6 +268,9 @@ int compare(const void *a, const void *b) {
 
 }
 
+/**
+ * @brief 获取某专业所有学生
+ */
 student **getStudentByMajor(const char *majorId, int *count) {
     student **students = malloc(MAX_STUDENT_NUM * sizeof(student *)); // 动态分配数组
     int tmpCount = 0;
@@ -286,6 +289,9 @@ student **getStudentByMajor(const char *majorId, int *count) {
     return students;   // 返回学生数组
 }
 
+/**
+ * @brief 根据班级获取学生
+ */
 student **getStudentByClass(const char *majorId, int grade, int class, int *count) {
     student **students = malloc(MAX_STUDENT_NUM * sizeof(student *)); // 动态分配数组
     int tmpCount = 0;
@@ -308,13 +314,14 @@ void printStudentByClass(const char *majorId, int grade, int class){
     int count = 0;
 
     student **students = getStudentByClass(majorId, grade, class, &count);
-    qsort(students, count, sizeof(student *), compare);
+
+    quickSort(students, 0, count - 1, sizeof(student *), compare);
 
     int rank = 0;
     int sameNum = 1;
 
     printf("\t+=====================================================+\n");
-    printf("\t| 年级: %d   班级：%d                                 |\n", grade, class);
+    printf("\t| 年级: %d   班级：%d                                |\n", grade, class);
     printf("\t+------+------------+------+------------+------+------+\n");
     printf("\t| 排名 |    学号    | 姓名 |    专业    | 年级 | GPA  |\n");
     printf("\t+------+------------+------+------------+------+------+\n");
@@ -425,8 +432,9 @@ void printStudentByMajor(const char *majorId) {
     free(students);
 }
 
-// qsort 个人实现版？
-// quickSort(students, 0, count - 1, sizeof(student *), compare);
+/**
+ * @brief 快速排序算法
+ */
 void quickSort(void *base, int left, int right, size_t size, int (*cmp)(const void *, const void *)) {
     if (left >= right) {
         return;
