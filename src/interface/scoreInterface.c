@@ -83,7 +83,9 @@ void modifyScore() {
         for( i = 0; i < stu->subjectNum; i ++){
             if(strcmp(stu->scores[i].id,subjectId) == 0){
                 printf("请输入新的成绩: ");
-                scanf("%lf", &stu->scores[i].score);
+                double tmp;
+                scanf("%lf", &tmp);
+                stu->scores[i].score = tmp;
                 printf ("学号%s的%s成绩修改成功!\n",id,getSubjectByIdx(subjectId));
                 break;
             }
