@@ -156,7 +156,7 @@ void searchStudentByName(char *name){
     }
 
     if(key == 0){
-        printf("未找到名字为 %s 的学生", name);
+        printf("未找到名字为 %s 的学生\n", name);
     }
 }
 
