@@ -98,6 +98,18 @@ void modifyScore() {
 
         printf("\n");
     }
+
+    char* name = stu->name;
+    student* stu2 = searchStudentByNameAndId(name, stu->id);
+    
+    if(stu2 != NULL){
+        // 保存原始的 next 指针，避免破坏哈希表链表结构
+        student *next = stu2->next;
+        // 将修改后的学生信息复制到哈希表链表中
+        // 这里是修改 姓名哈希表的。
+        *stu2 = *stu;
+        stu2->next = next;
+    }
 }
 
 
