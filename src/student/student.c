@@ -161,6 +161,25 @@ void searchStudentByName(char *name){
 }
 
 /**
+ * @brief 通过姓名和学号查找学生
+ * @param name 姓名
+ * @param id 学号
+ */
+student *searchStudentByNameAndId(char *name, char *id) {
+    unsigned int idx = hash(name);
+    student *stu = studentByName[idx];
+
+    while (stu) {
+        if (strcmp(stu->name, name) == 0 && strcmp(stu->id, id) == 0) {
+            return stu;
+        }
+        stu = stu->next;
+    }
+
+    return NULL;
+}
+
+/**
  * @brief 计算单科绩点（60分以下绩点为0）
  */
 double countGPA(double score){
