@@ -50,7 +50,6 @@ static const char* MODIFY_PASSWORD_SUCCESS = "\t\t*****修改密码成功！****
 static const char* SYSTEM_LOCAL_DATE_TIME = "当前系统时间为: ";
 static const char* ADD_USER_SUCCESS = "\t\t***** 添加用户成功！*****";
 static const char* ADD_USER_ERROR = "\t\t** 该用户名已存在, 添加失败！**";
-denglu
 static const char* INFO = "\
 +============+======+============+========+======+==============+==========+==========+==============+================+\n\
 |    学号    | 姓名 |     专业   |  年级  | 班级 | 平均学分绩点 | 加权分数 | 学科数目 | 已获得总学分 | 不及格科目数量 |\n\
