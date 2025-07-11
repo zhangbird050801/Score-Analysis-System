@@ -65,3 +65,59 @@ char* getTime() {
 
     return s;
 }
+
+
+/**
+ * @brief 获取UTF-8字符的字节长度
+ * @param str 指向字符的指针
+ * @return 字符的字节数，如果不是有效UTF-8字符返回1
+ */
+int getUTF8CharLength(const char* str) {
+    if (!str) return 0;
+    
+    unsigned char c = (unsigned char)str[0];
+    
+    if (c < 0x80) {
+        return 1;  // ASCII字符
+    } else if ((c & 0xE0) == 0xC0) {
+        return 2;  // 2字节UTF-8字符
+    } else if ((c & 0xF0) == 0xE0) {
+        return 3;  // 3字节UTF-8字符（中文）
+    } else if ((c & 0xF8) == 0xF0) {
+        return 4;  // 4字节UTF-8字符
+    }
+    
+    return 1;  // 默认返回1，避免死循环
+}
+
+/**
+ * @brief 将UTF-8字符串分解为字符数组
+ * @param str 输入字符串
+ * @param chars 输出的字符数组
+ * @param maxChars 最大字符数
+ * @return 实际字符数量
+ */
+int splitUTF8String(const char* str, char chars[][8], int maxChars) {
+    if (!str) return 0;
+    
+    int count = 0;
+    int pos = 0;
+    int len = strlen(str);
+    
+    while (pos < len && count < maxChars) {
+        int charLen = getUTF8CharLength(str + pos);
+        if (charLen == 0) {
+            pos++;  // 跳过无效字符
+            continue;
+        }
+        
+        // 复制字符
+        strncpy(chars[count], str + pos, charLen);
+        chars[count][charLen] = '\0';
+        
+        pos += charLen;
+        count++;
+    }
+    
+    return count;
+}

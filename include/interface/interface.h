@@ -52,6 +52,7 @@ void sortByClass();
 void analyzeInterface();
 void analyzeGrade();
 void analyzeClass();
+void analyzeAllClasses();
 double max(double a, double b);
 double min(double a, double b);
 void printScoreAnalysis(const char *subjectName, ScoreAnalysis *analysis);
@@ -62,6 +63,7 @@ void printAnalysisHeader(const char *majorName, int classId);
 void searchInterface();
 void searchById();
 void searchByName();
+void fuzzySearchByName();
 
 /* scoreInterface */
 void scoreInterface();

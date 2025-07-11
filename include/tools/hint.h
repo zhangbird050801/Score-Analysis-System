@@ -17,5 +17,9 @@ void modifyPasswordSuccess();
 void addUserSuccess();
 void addUserError();
 void printInfo();
+void searchNoResultMessage(char *namePattern);
+void searchSuggestionMessage();
+void searchResultSummary(int count);
+void searchExplanationMessage();
 
 #endif

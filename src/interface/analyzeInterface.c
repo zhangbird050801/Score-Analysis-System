@@ -1,6 +1,6 @@
 #include "interface/interface.h"
 
-static HANDLE handler[] = {analyzeGrade, analyzeClass};
+static HANDLE handler[] = {analyzeGrade, analyzeClass, analyzeAllClasses};
 
 void analyzeInterface() {
     makeInterface(ANALYZE, handler);
@@ -189,3 +189,104 @@ void analyzeClass() {
     free(students);
 }
 
+/**
+ * @brief 分析整个年级下所有班级的成绩
+ */
+void analyzeAllClasses() {
+    int count = 0;
+    int targetGrade;
+    char majorId[MAX_ID_LENGTH];
+    
+    printf("请输入要分析的年级：");
+    scanf("%d", &targetGrade);
+    
+    printf("请输入专业ID: ");
+    scanf("%s", majorId);
+
+    // 获取指定专业的所有学生
+    student **allStudents = getStudentByMajor(majorId, &count);
+    if (count == 0) {
+        printf("未找到该专业的学生记录\n");
+        return;
+    }
+    
+    // 筛选出指定年级的学生
+    student **students = malloc(count * sizeof(student*));
+    int gradeStudentCount = 0;
+    
+    for (int i = 0; i < count; i++) {
+        if (allStudents[i]->grade == targetGrade) {
+            students[gradeStudentCount++] = allStudents[i];
+        }
+    }
+    
+    if (gradeStudentCount == 0) {
+        printf("未找到 %d 年级该专业的学生记录\n", targetGrade);
+        free(students);
+        free(allStudents);
+        return;
+    }
+    
+    count = gradeStudentCount;  // 更新学生数量
+
+    // 获取科目数量
+    int subNum = students[0]->subjectNum;
+
+    // 获取所有班级编号
+    int *classIds = malloc(count * sizeof(int));
+    int classCount = 0;
+
+    for (int i = 0; i < count; i++) {
+        int isExist = 0;
+        for (int j = 0; j < classCount; j++) {
+            if (classIds[j] == students[i]->classId) {
+                isExist = 1;
+                break;
+            }
+        }
+        if (!isExist) {
+            classIds[classCount++] = students[i]->classId;
+        }
+    }
+
+    // 按班级逐科目分析
+    for (int c = 0; c < classCount; c++) {
+        int currentClass = classIds[c];
+
+        // 计算当前班级的学生数
+        int currentStudentCount = 0;
+        for (int i = 0; i < count; i++) {
+            if (students[i]->classId == currentClass) {
+                currentStudentCount++;
+            }
+        }
+
+        // 打印表头
+        printAnalysisHeader(getMajorByIdx(majorId), currentClass);
+
+        // 逐科目分析
+        for (int i = 0; i < subNum; i++) {
+            double *scores = malloc(currentStudentCount * sizeof(double));
+            int scoreIndex = 0;
+
+            for (int j = 0; j < count; j++) {
+                if (students[j]->classId == currentClass) {
+                    scores[scoreIndex++] = students[j]->scores[i].score;
+                }
+            }
+
+            ScoreAnalysis analysis;
+            analyzeScores(scores, currentStudentCount, &analysis);
+
+            printScoreAnalysis(getSubjectByIdx(students[0]->scores[i].id), &analysis);
+
+            free(scores);
+        }
+
+        printf("\n");
+    }
+
+    free(classIds);
+    free(students);
+    free(allStudents);
+}

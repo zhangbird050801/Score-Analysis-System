@@ -38,7 +38,13 @@ void addStudent(student *stu);
 void printStudent(student *stu);
 student *searchStudentById(char *id);
 void searchStudentByName(char *name);
-student *searchStudentByNameAndId(char *name, char *id);
+// void fuzzySearchStudentByName(char *namePattern);
+void fuzzySearchStudentByName(char *namePattern);
+int min3(int a, int b, int c);
+int editDistance(const char* str1, const char* str2);
+int fuzzyMatch(const char* str, const char* pattern, int threshold);
+
+void addStudent(student *stu);
 double countGPA(double score);
 double countAverageGPA(student *stu);
 double getWAM(student *stu);

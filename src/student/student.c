@@ -1,9 +1,33 @@
 #include "interface/interface.h"
+#include "tools/printHelp.h"
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
 
 static const char* FILEPATH = "src/Data/Student.txt";
 static student *studentById[MAX_STUDENT_NUM];
 static student *studentByName[MAX_STUDENT_NUM];
 static int totalStudent = 0;
+
+const int name_width = 14;      // 姓名列宽
+const int id_width = 11;        // 学号列宽  
+const int grade_width = 8;      // 年级列宽
+const int class_width = 8;      // 班级列宽
+const int type_width = 18;      // 匹配类型列宽
+
+/**
+ * @brief 返回三个整数中的最小值
+ * @param a 第一个整数
+ * @param b 第二个整数  
+ * @param c 第三个整数
+ * @return 最小值
+ */
+int min3(int a, int b, int c) {
+    int min_val = a;
+    if (b < min_val) min_val = b;
+    if (c < min_val) min_val = c;
+    return min_val;
+}
 
 /**
  * @brief 哈希函数
@@ -490,4 +514,176 @@ void quickSort(void *base, int left, int right, size_t size, int (*cmp)(const vo
     // 递归排序左右两部分
     quickSort(base, left, i - 1, size, cmp);
     quickSort(base, i + 1, right, size, cmp);
+}
+
+
+
+/**
+ * @brief 按字符单位计算中文编辑距离
+ * @param str1 第一个字符串
+ * @param str2 第二个字符串
+ * @return 编辑距离（以字符为单位）
+ */
+int editDistance(const char* str1, const char* str2) {
+    if (!str1 || !str2) return -1;
+    
+    char chars1[50][8]; 
+    char chars2[50][8];
+    
+    int len1 = splitUTF8String(str1, chars1, 50);
+    int len2 = splitUTF8String(str2, chars2, 50);
+    
+    int** dp = (int**)malloc((len1 + 1) * sizeof(int*));
+    for (int i = 0; i <= len1; i++) {
+        dp[i] = (int*)malloc((len2 + 1) * sizeof(int));
+    }
+    
+    for (int i = 0; i <= len1; i++) dp[i][0] = i;
+    for (int j = 0; j <= len2; j++) dp[0][j] = j;
+    
+    for (int i = 1; i <= len1; i++) {
+        for (int j = 1; j <= len2; j++) {
+            if (strcmp(chars1[i - 1], chars2[j - 1]) == 0) {
+                dp[i][j] = dp[i - 1][j - 1];  
+            } else {
+                dp[i][j] = 1 + min3(
+                    dp[i - 1][j],     // 删除
+                    dp[i][j - 1],     // 插入
+                    dp[i - 1][j - 1]  // 替换
+                );
+            }
+        }
+    }
+    
+    int result = dp[len1][len2];
+    
+    for (int i = 0; i <= len1; i++) {
+        free(dp[i]);
+    }
+    free(dp);
+    
+    return result;
+}
+
+/**
+ * @brief 模糊匹配函数
+ * @param str 目标字符串
+ * @param pattern 搜索模式
+ * @param threshold 相似度阈值
+ * @return 1表示匹配，0表示不匹配
+ */
+int fuzzyMatch(const char* str, const char* pattern, int threshold) {
+    if (!str || !pattern) return 0;
+    
+    if (strstr(str, pattern) != NULL) {
+        return 1;
+    }
+    
+    int distance = editDistance(str, pattern);
+    return distance >= 0 && distance <= threshold;
+}
+
+/**
+ * @brief 模糊搜索学生姓名
+ * @param namePattern 姓名模式
+ */
+void fuzzySearchStudentByName(char *namePattern) {
+    int found = 0;
+    int threshold = 1;  // 编辑距离阈值
+    student *matchedStudents[MAX_STUDENT_NUM];  // 存储匹配的学生
+    
+    printf("\n%s%s", BOLD, FRONT_BLUE);
+    printf("+=========================================================================+\n");
+    printf("│");print_centered("搜 索 结 果", 73);
+    printf("│\n");printf("+================+=============+==========+==========+====================+\n");
+    printf("│ ");print_centered("姓名", name_width);
+    printf(" │ ");print_centered("学号", id_width);
+    printf(" │ ");print_centered("年级", grade_width);
+    printf(" │ ");print_centered("班级", class_width);
+    printf(" │ ");print_centered("匹配类型", type_width);printf(" │\n");
+    printf("+================+=============+==========+==========+====================+%s\n", RESET);
+    
+    // 遍历所有学生
+    for (int i = 0; i < MAX_STUDENT_NUM; i++) {
+        student *current = studentById[i];
+        
+        while (current) {
+            int matched = 0;
+            char matchType[50] = ""; 
+            
+            // 直接子串匹配
+            if (strstr(current->name, namePattern)) {
+                matched = 1;
+                strcpy(matchType, "精确匹配");
+            }
+            else if (fuzzyMatch(current->name, namePattern, 1)) {
+                matched = 1;
+                int distance = editDistance(current->name, namePattern);
+                if (distance >= 0) {
+                    sprintf(matchType, "中文相似(距离%d)", distance);
+                } else {
+                    strcpy(matchType, "中文相似");
+                }
+            }
+            
+            if (matched) {
+                char gradeStr[10], classStr[10];
+                sprintf(gradeStr, "%d", current->grade);
+                sprintf(classStr, "%d", current->classId);
+                
+                printf("│ ");print_centered(current->name, name_width);
+                printf(" │ ");print_centered(current->id, id_width);
+                printf(" │ ");print_centered(gradeStr, grade_width);
+                printf(" │ ");print_centered(classStr, class_width);
+                printf(" │ ");print_centered(matchType, type_width);printf(" │\n");
+                
+                matchedStudents[found] = current;  // 保存匹配的学生
+                found++;
+            }
+            
+            current = current->next;
+        }
+    }
+    
+    printf("+================+=============+==========+==========+====================+\n");
+    
+    if (found == 0) {
+        searchNoResultMessage(namePattern);
+        searchSuggestionMessage();
+    } else {
+        searchResultSummary(found);
+        searchExplanationMessage();
+        
+        if (found == 1) {
+            printf("\n%s是否查看该学生的详细信息? (Y/N): %s", FRONT_GREEN, RESET);
+            char choice;
+            scanf(" %c", &choice);
+            if (choice == 'Y' || choice == 'y') {
+                printStudent(matchedStudents[0]);
+            }
+        } else {
+            printf("\n%s是否查看某位学生的详细信息? (Y/N): %s", FRONT_GREEN, RESET);
+            char choice;
+            scanf(" %c", &choice);
+            if (choice == 'Y' || choice == 'y') {
+                printf("请输入要查看的学生学号: ");
+                char selectedId[20];
+                scanf("%s", selectedId);
+                
+                // 查找对应的学生
+                int studentFound = 0;
+                for (int i = 0; i < found; i++) {
+                    if (strcmp(matchedStudents[i]->id, selectedId) == 0) {
+                        printStudent(matchedStudents[i]);
+                        studentFound = 1;
+                        break;
+                    }
+                }
+                
+                if (!studentFound) {
+                    printf("%s该学号在搜索结果中不存在!%s\n", FRONT_RED, RESET);
+                }
+            }
+        }
+    }
 }

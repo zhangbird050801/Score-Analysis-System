@@ -63,11 +63,6 @@ int searchByUserName(char *name) {
     return -1;
 }
 
-// TODO: 二分查找
-int searchByUserId(char *id) {
-    
-}
-
 /**
  * @brief 添加新用户
  * @param name 用户名

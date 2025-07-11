@@ -50,6 +50,9 @@ static const char* MODIFY_PASSWORD_SUCCESS = "\t\t*****修改密码成功！****
 static const char* SYSTEM_LOCAL_DATE_TIME = "当前系统时间为: ";
 static const char* ADD_USER_SUCCESS = "\t\t***** 添加用户成功！*****";
 static const char* ADD_USER_ERROR = "\t\t** 该用户名已存在, 添加失败！**";
+static const char* SEARCH_NO_RESULT = "未找到相关的学生信息";
+static const char* SEARCH_SUGGESTION = "搜索建议:";
+static const char* SEARCH_EXPLANATION = "说明: 相似匹配可自动纠正拼写错误";
 static const char* INFO = "\
 +============+======+============+========+======+==============+==========+==========+==============+================+\n\
 |    学号    | 姓名 |     专业   |  年级  | 班级 | 平均学分绩点 | 加权分数 | 学科数目 | 已获得总学分 | 不及格科目数量 |\n\
@@ -96,3 +99,23 @@ void addUserSuccess(){printf("\n%s%s%s\n\n", FRONT_PURPLR, ADD_USER_SUCCESS, RES
 void addUserError(){printf("\n%s%s%s\n\n", FRONT_RED, ADD_USER_ERROR, RESET);}
 
 void printInfo(){printf("\n%s%s%s%s", BOLD, FRONT_BLUE, INFO, RESET);}
+
+void searchNoResultMessage(char *namePattern) {
+    printf("%s%s \"%s\"%s\n", FRONT_RED, SEARCH_NO_RESULT, namePattern, RESET);
+}
+
+void searchSuggestionMessage() {
+    printf("\n%s%s%s\n", FRONT_YELLOW, SEARCH_SUGGESTION, RESET);
+    printf("• 检查输入是否正确\n");
+    printf("• 尝试输入更少的字符\n");
+    printf("• 使用部分姓名搜索\n");
+    printf("• 系统支持2个字符以内的输入错误纠正\n");
+}
+
+void searchResultSummary(int count) {
+    printf("\n%s总共找到 %d 名学生%s\n", FRONT_GREEN, count, RESET);
+}
+
+void searchExplanationMessage() {
+    printf("%s%s%s\n", FRONT_BLUE, SEARCH_EXPLANATION, RESET);
+}
